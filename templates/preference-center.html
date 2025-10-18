@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <!-- ================================
+        This Preference Center was downloaded from github.com/mylokaye
+        and is available without cost or need of attribution. 
+        --
+         Credit to Megan for the re-direct code used in this file. meganvwalker.com
+         ================================ -->
+    
+    <!-- ================================
+         META TAGS & CONFIGURATION
+         ================================ -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Preference Center | [Company Name]</title>
+    <!-- Referrer policy set to 'never' for enhanced privacy protection -->
+    <meta name="referrer" content="never">
+    
+    <!-- Theme Color for Browser Chrome (uses primary brand color) -->
+    <meta name="theme-color" content="#2d5f8e">
+    <!-- Apple Safari specific -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d5f8e">
+    <!-- Microsoft Edge/IE -->
+    <meta name="msapplication-TileColor" content="#2d5f8e">
+    
+    <!-- Dynamics 365 Customer Insights Required Meta Tags - DO NOT REMOVE -->
+    <meta type="xrm/designer/setting" name="type" value="marketing-designer-content-editor-document">
+    <meta type="xrm/designer/setting" name="layout-editable" value="marketing-designer-layout-editable">
+    <meta type="xrm/designer/setting" name="layout-max-width" value="600px" datatype="text" label="Layout max width">
+    <meta type="xrm/designer/setting" name="font-family" value="Verdana, Arial, sans-serif" datatype="font" label="Font Family">
+    <meta type="xrm/designer/setting" name="body-text-size" value="16px" datatype="text" label="Body Font Size">
+    <meta type="xrm/designer/setting" name="body-text-color" value="#000" datatype="color" label="Body Text Color">
+    <meta type="xrm/designer/setting" name="outer-background" value="#FFFFF" datatype="color" label="Email Background">
+
+    <!-- Favicon - Modern multi-format support -->
+
+    <link rel="icon" href="https://raw.githubusercontent.com/mylokaye/Custom-Preference-Center-Dynamics-365-Customer-Insights/refs/heads/main/Assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/mylokaye/Custom-Preference-Center-Dynamics-365-Customer-Insights/refs/heads/main/Assets/apple-touch-icon.png">
+    <link rel="manifest" href="https://raw.githubusercontent.com/mylokaye/Custom-Preference-Center-Dynamics-365-Customer-Insights/refs/heads/main/Assets/manifest.webmanifest">
+
+   <!-- ================================
+         CUSTOM FONTS
+         ================================
+         Manrope: Used for all body text and UI elements
+         Montserrat: Used for all headings (h1, h2, brand names)
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+     
+
+        /* ================================
+           1. BRAND COLORS (CSS VARIABLES)
+           ================================
+           Simplified to 5 core customizable colors
+        */
+
+        :root {
+            --color-primary: #2d5f8e;                /* Brand color - headings, titles, nav links (WCAG AA compliant) */
+            --color-accent: #0f5cd3;                 /* Buttons, hovers, interactive elements */
+            --color-text-body: #1a1a1a;              /* Main body text (WCAG AAA compliant) */
+            --color-background: #fafafa;             /* Page/section backgrounds */
+            --color-text-footer-copyright: #ffffff;  /* Bottom copyright footer text */
+            --color-card-bg: #ffffff;                /* Card backgrounds */
+            --color-nav-bg: #ffffff;                 /* Navigation background */
+            --color-border: #e5e5e5;                 /* Borders */
+            --color-border-card: #e9ecef;            /* Card borders */
+            --color-text-dark: #1a1a1a;              /* Dark text variant */
+            --color-checkbox-border: #ddd;           /* Checkbox border */
+            --color-checkbox-hover-bg: #f0f7ff;      /* Checkbox hover background */
+            --color-footer-bg: #ecedef;              /* Footer background */
+            --color-footer-text: #3a3a3a;            /* Footer text */
+            --color-email-bg: #f0f7ff;               /* Email display background */
+            --color-shadow: rgba(0, 0, 0, 0.08);     /* Shadow color */
+            --color-shadow-hover: rgba(0, 0, 0, 0.12); /* Shadow hover color */
+            --color-disabled-bg: #f5f5f5;            /* Disabled checkbox background */
+            --color-disabled-border: #e0e0e0;        /* Disabled checkbox border */
+            --color-disabled-text: #999;             /* Disabled text */
+        }
+
+        /* Dark mode automatically activated based on system preferences */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-primary: #5b9fd9;            /* Lighter blue for better contrast */
+                --color-accent: #4a8ef5;             /* Brighter accent for dark bg */
+                --color-text-body: #e5e5e5;          /* Light text */
+                --color-background: #1a1a1a;         /* Dark background */
+                --color-card-bg: #2a2a2a;            /* Dark card background */
+                --color-nav-bg: #1f1f1f;             /* Dark nav background */
+                --color-border: #404040;             /* Dark borders */
+                --color-border-card: #404040;        /* Dark card borders */
+                --color-text-dark: #e5e5e5;          /* Light text in dark mode */
+                --color-checkbox-border: #555;       /* Darker checkbox border */
+                --color-checkbox-hover-bg: #1a3a5f;  /* Dark blue hover */
+                --color-footer-bg: #1f1f1f;          /* Dark footer */
+                --color-footer-text: #b0b0b0;        /* Lighter footer text */
+                --color-email-bg: #2d4a6e;           /* Dark email bg - lighter for better contrast */
+                --color-shadow: rgba(0, 0, 0, 0.3);  /* Stronger shadow for dark mode */
+                --color-shadow-hover: rgba(0, 0, 0, 0.5); /* Stronger hover shadow */
+                --color-disabled-bg: #333;           /* Dark disabled background */
+                --color-disabled-border: #555;       /* Dark disabled border */
+                --color-disabled-text: #666;         /* Dark disabled text */
+            }
+        }
+
+        /* ================================
+           2. GLOBAL RESET & BASE STYLES
+           ================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-text-body);
+            background-color: var(--color-nav-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        /* ================================
+           3. NAVIGATION BAR
+           ================================ */
+        .nav-bar {
+            background: var(--color-nav-bg);
+            padding: 0;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            list-style: none;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            position: relative;
+            z-index: 1001;
+            background: var(--color-nav-bg);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 5px 0;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-text-body);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 12px;
+            min-width: 44px;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ================================
+           4. MAIN CONTAINER
+           ================================ */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--color-card-bg);
+        }
+
+        /* ================================
+           5. HEADER SECTION
+           ================================ */
+        .header-section {
+            padding: 80px 40px 40px;
+            text-align: center;
+            background: var(--color-card-bg);
+        }
+
+        .main-title {
+            font-family: 'Montserrat', Georgia, serif;
+            font-size: 48px;
+            font-weight: 400;
+            color: var(--color-text-body);
+            margin-bottom: 0;
+            letter-spacing: -0.5px;
+        }
+
+        /* ================================
+           6. INTRO SECTION
+           ================================ */
+        .intro-section {
+            padding: 30px 80px 50px;
+            text-align: center;
+            background: var(--color-card-bg);
+        }
+
+        .intro-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--color-text-body);
+            margin-bottom: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.95;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .intro-section p {
+                opacity: 1;
+            }
+        }
+
+        .intro-section p:first-child {
+            font-weight: 400;
+            color: var(--color-text-body);
+        }
+
+        /* ================================
+           7. SUBSCRIPTIONS SECTION
+           ================================ */
+        .subscriptions-header {
+            padding: 50px 40px 30px;
+            text-align: center;
+            background: var(--color-card-bg);
+        }
+
+        .section-title {
+            font-family: 'Montserrat', Georgia, serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0;
+        }
+
+        /* ================================
+           8. PURPOSE CARDS GRID
+           ================================
+           Single column layout, centered
+           Card contains checkboxes for topics and unsubscribe option
+        */
+        .purposes-container {
+            padding: 40px 0 60px;
+            background: var(--color-background);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .purposes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .purpose-card {
+            background: var(--color-card-bg);
+            border-radius: 12px;
+            padding: 35px 25px;
+            box-shadow: 0 4px 15px var(--color-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--color-border-card);
+        }
+
+        .purpose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--color-shadow-hover);
+        }
+
+        .purpose-logo {
+            text-align: center;
+            margin-bottom: 25px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .purpose-logo img {
+            max-width: 180px;
+            max-height: 50px;
+            height: auto;
+            width: auto;
+        }
+
+        .purpose-logo-text {
+            font-family: 'Montserrat', Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-align: center;
+            padding: 10px 0 20px 0;
+        }
+
+        /* ================================
+           9. CUSTOM CHECKBOX STYLING
+           ================================
+           IMPORTANT: Data attributes required by Dynamics 365
+           Do not modify checkbox data attributes
+        */
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+
+        .custom-checkbox {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            position: relative;
+            padding-left: 35px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--color-text-body);
+            user-select: none;
+            transition: all 0.2s ease;
+            min-height: 44px;
+        }
+
+        .custom-checkbox:hover {
+            color: var(--color-accent);
+        }
+
+        .custom-checkbox input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 8px;
+            left: 0;
+            height: 22px;
+            width: 22px;
+            background-color: var(--color-card-bg);
+            border: 2px solid var(--color-checkbox-border);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox:hover .checkmark {
+            border-color: var(--color-accent);
+            background-color: var(--color-checkbox-hover-bg);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .custom-checkbox input:disabled ~ .checkmark {
+            background-color: var(--color-disabled-bg);
+            border-color: var(--color-disabled-border);
+            cursor: not-allowed;
+        }
+
+        .custom-checkbox input:disabled ~ .checkbox-label {
+            color: var(--color-disabled-text);
+            cursor: not-allowed;
+        }
+
+        .checkbox-label {
+            display: inline-block;
+            padding-left: 0;
+        }
+
+        /* ================================
+           10. EMAIL SECTION
+           ================================ */
+        .email-section {
+            padding: 60px 40px;
+            background: var(--color-card-bg);
+            text-align: center;
+        }
+
+        .email-title {
+            font-family: 'Montserrat', Georgia, serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0;
+        }
+
+        .email-display {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--color-accent);
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--color-email-bg);
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 300px;
+        }
+
+        .email-notice {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--color-footer-text);
+            max-width: 700px;
+            margin: 20px auto;
+            line-height: 1.7;
+        }
+
+        /* ================================
+           11. SUBMIT BUTTON
+           ================================ */
+        .submit-container {
+            margin-top: 40px;
+        }
+
+        .submit-button {
+            font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: white;
+            background: var(--color-accent);
+            border: none;
+            border-radius: 50px;
+            padding: 18px 45px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(3, 24, 61, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .submit-button:hover {
+            background: var(--color-accent);
+            filter: brightness(0.85);
+            box-shadow: 0 6px 16px rgba(3, 24, 61, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .submit-button:disabled {
+            background: #d0d0d0;
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .submit-button::after {
+            content: '→';
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-button:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* ================================
+           12. FOOTER SECTION
+           ================================ */
+        .footer-section {
+            padding: 60px 0;
+            background: var(--color-footer-bg);
+            border-top: none;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 0 40px;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--color-footer-text);
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        .footer-links {
+            margin: 25px 0;
+        }
+
+        .footer-links a {
+            color: var(--color-text-dark);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-separator {
+            color: #666;
+            margin: 0 10px;
+        }
+
+        .bottom-footer {
+            padding: 20px 0;
+            background: var(--color-accent);
+            text-align: center;
+        }
+
+        .bottom-footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--color-text-footer-copyright);
+            padding: 0 40px;
+        }
+
+        .copyright {
+            color: var(--color-white);
+        }
+
+        .last-updated {
+            color: var(--color-white);
+        }
+
+        /* ================================
+           13. HIDDEN ELEMENTS (for Dynamics 365)
+           ================================ */
+        .hide-on-desktop-class {
+            display: none !important;
+        }
+
+        /* ================================
+           14. RESPONSIVE - TABLET & MOBILE
+           ================================ */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 25px;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: var(--color-nav-bg);
+                width: 100%;
+                text-align: center;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 0;
+                gap: 0;
+                border-bottom: 1px solid var(--color-border);
+                margin: 0;
+                z-index: 999;
+            }
+
+            .nav-links a {
+                padding: 16px 20px;
+                display: block;
+                width: 100%;
+                min-height: 44px;
+                color: var(--color-primary);
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+                padding: 20px 0;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .purposes-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 30px;
+            }
+
+            .main-title {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .intro-section {
+                padding: 40px 30px;
+            }
+
+            .header-section {
+                padding: 50px 30px 30px;
+            }
+
+            .email-section {
+                padding: 50px 30px;
+            }
+
+            .hide-on-mobile-class {
+                display: none !important;
+            }
+
+            .hide-on-desktop-class {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .nav-logo {
+                font-size: 20px;
+            }
+
+            .purposes-container {
+                padding: 30px 0;
+            }
+
+            .purposes-grid {
+                padding: 0 20px;
+            }
+
+            .main-title {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .intro-section {
+                padding: 30px 20px;
+            }
+
+            .intro-section p {
+                font-size: 15px;
+            }
+
+            .header-section {
+                padding: 60px 20px 40px;
+            }
+
+            .purpose-card {
+                padding: 25px 20px;
+            }
+
+            .email-section {
+                padding: 40px 20px;
+            }
+
+            .email-title {
+                font-size: 22px;
+            }
+
+            .email-display {
+                font-size: 16px;
+                min-width: auto;
+                width: 100%;
+            }
+
+            .submit-button {
+                font-size: 16px;
+                padding: 16px 40px;
+                width: 100%;
+                max-width: 300px;
+                min-height: 52px;
+            }
+
+            .submit-container {
+                padding-bottom: 20px;
+            }
+
+            .footer-section {
+                padding: 40px 0;
+            }
+
+            .footer-content {
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            .footer-text {
+                font-size: 13px;
+            }
+
+            .bottom-footer {
+                padding: 20px 0;
+            }
+
+            .bottom-footer-content {
+                flex-direction: column;
+                gap: 10px;
+                padding: 0 20px;
+            }
+
+            .bottom-footer {
+                padding-bottom: calc(20px + env(safe-area-inset-bottom));
+            }
+
+            .submit-container {
+                padding-bottom: calc(20px + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* ================================
+           FOCUS MANAGEMENT
+           ================================ */
+        
+        /* Remove default outline and add custom focus styles */
+        *:focus {
+            outline: none;
+        }
+
+        /* Focus styles for interactive elements */
+        a:focus,
+        button:focus,
+        input[type="checkbox"]:focus,
+        select:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        /* Special focus style for custom checkboxes */
+        .custom-checkbox input[type="checkbox"]:focus ~ .checkmark {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(15, 92, 211, 0.1);
+        }
+
+        /* Navigation link focus */
+        .nav-links a:focus {
+            background-color: rgba(15, 92, 211, 0.1);
+            outline: 3px solid var(--color-accent);
+            outline-offset: -3px;
+        }
+
+        /* Mobile menu toggle focus */
+        .mobile-menu-toggle:focus {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+            background-color: rgba(15, 92, 211, 0.1);
+        }
+
+        /* Submit button focus */
+        .submit-button:focus {
+            outline: 3px solid #ffffff;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 6px var(--color-accent);
+        }
+
+        /* Focus visible polyfill for keyboard-only focus */
+        .js-focus-visible :focus:not(.focus-visible) {
+            outline: none;
+        }
+
+        .js-focus-visible .focus-visible {
+            outline: 3px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        /* ================================
+           MOTION PREFERENCES
+           ================================ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* ================================
+           16. LOADER
+           ================================ */
+        .loader_container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .loader_container {
+                background: rgba(26, 26, 26, 0.9);
+            }
+        }
+
+        .loader {
+            border: 4px solid var(--color-border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+
+            border-top: 4px solid var(--color-accent);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <!-- ================================
+         Re-direct script, remove if not needed.
+         ================================ -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.querySelector("form");
+            form.addEventListener("submit", function() {
+                // Replace the URL with your desired redirect URL
+                setTimeout(function() {
+                    window.location.href = "https://google.com";
+                }, 0);
+            });
+        });
+    </script>
+   <!-- ================================
+         Re-direct script, remove if not needed.
+         ================================ -->
+
+</head>
+
+<body>
+    <!-- ================================
+         JAVASCRIPT
+         ================================
+         Main JavaScript for Preference Center
+         Handles: Brand customization, copyright year updates, mobile menu interactions
+         Dependencies: Dynamics 365 main.dist.js
+         ================================ -->
+    <script>
+    /**
+     * CONFIGURATION
+     * Update BRAND_NAME to customize the company name throughout the site
+     */
+    const BRAND_NAME = "Truestory";
+    </script>
+    
+    <!-- Dynamics 365 Required Script - DO NOT REMOVE -->
+    <script src="/consentcontent/preferencecenter/js/main.dist.js"></script>
+    
+    <script>
+    /**
+     * DOM MANIPULATION
+     * All DOM manipulation happens after page load to ensure elements exist
+     */
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        /**
+         * Brand Name Replacement
+         * Replaces all [Company Name] placeholders with the configured BRAND_NAME
+         * Searches through: paragraphs, spans, headings, buttons, labels, and footer elements
+         */
+        const elements = document.querySelectorAll('p, span, h1, h2, title, button, label, .footer-text, .copyright');
+        elements.forEach(el => {
+            if (el.textContent.includes('[Company Name]')) {
+                el.textContent = el.textContent.replace(/\[Company Name\]/g, BRAND_NAME);
+            }
+        });
+        
+        // Update page title with brand name
+        if (document.title.includes('[Company Name]')) {
+            document.title = document.title.replace(/\[Company Name\]/g, BRAND_NAME);
+        }
+
+        /**
+         * Auto-Update Copyright Year
+         * Dynamically updates the copyright year to current year
+         * Format: © [BRAND_NAME] [CURRENT_YEAR]
+         */
+        const currentYear = new Date().getFullYear();
+        const copyrightElement = document.querySelector('.copyright');
+        if (copyrightElement) {
+            copyrightElement.textContent = `© ${BRAND_NAME} ${currentYear}`;
+        }
+
+        /**
+         * Mobile Menu Toggle
+         * Handles hamburger menu click events on mobile devices
+         * Toggles menu visibility and updates ARIA attributes for accessibility
+         */
+        const mobileToggle = document.querySelector('.mobile-menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', function() {
+                // Check current state
+                const isExpanded = navLinks.classList.contains('active');
+                
+                // Toggle menu visibility
+                navLinks.classList.toggle('active');
+                
+                // Update button icon (hamburger ☰ to close ✕)
+                this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+                
+                // Update ARIA attribute for screen readers
+                this.setAttribute('aria-expanded', !isExpanded);
+            });
+        }
+    });
+    </script>
+
+        
+    <!-- ================================
+         NAVIGATION BAR
+         ================================ -->
+    <nav role="navigation" aria-label="Main navigation" class="nav-bar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="https://github.com/mylokaye/Custom-Preference-Center-Dynamics-365-Customer-Insights/blob/main/Assets/truestory.png?raw=true" alt="[Company Name] Logo">
+            </a>
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Toggle navigation menu">☰</button>
+            <ul class="nav-links">
+                <li><a href="#" rel="noopener noreferrer">Privacy Policy</a></li>
+                <li><a href="#" rel="noopener noreferrer">Terms</a></li>
+                <li><a href="#" rel="noopener noreferrer">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+        
+    <!-- ================================
+         MAIN FORM CONTAINER
+         ================================ -->
+    <main id="main-content" role="main">
+    <form>
+        <div class="main-container">
+            
+            <!-- Header Section with Title (Logo Removed) -->
+            <header class="header-section">
+               <div data-editorblocktype="Text"><h1 class="main-title">Preference Center</h1></div>
+                <div class="header-divider"></div>
+            </header>
+
+            <!-- ================================
+                 INTRODUCTION SECTION
+                 ================================
+                 Three paragraphs explaining company and privacy
+                 To edit: Update paragraph text content
+            -->
+            <section class="intro-section" aria-label="Introduction">
+                <div data-editorblocktype="Text">
+                <p>At [Company Name], your privacy and personal information matter to us.</p>
+                <p>Privacy begins with giving you control over your data, along with the tools and information you need to make informed choices you can feel confident about. Through our Privacy Center, we invite you to customize the emails you receive.</p>
+            </div>
+            </section>
+
+        </div>
+
+    <!-- ================================
+         PURPOSE CARDS SECTION
+         ================================
+         IMPORTANT - Checkbox Data Attributes:
+         - data-purposeid: Purpose identifier (required by Dynamics 365)
+         - data-topicid: Subscription topic identifier (required)
+         - data-optinwhenchecked: true = opt-in, false = opt-out/unsubscribe
+         - name: "msdynmkt_topicid;optInWhenChecked" (required format)
+         - value: "GUID;true/false" (required format)
+         
+         DO NOT modify these data attributes unless updating in Dynamics 365 first
+    -->
+         
+    <section class="purposes-container" aria-label="Email preferences">
+                <div class="purposes-grid">
+                    
+                    <!-- Purpose 1 -->
+                    <div class="purpose-card">
+                        <h2 class="purpose-logo-text">Marketing Purpose</h2>
+                        <div data-container="true">
+                        <div class="checkbox-group">
+                            <!-- Topic 1 -->
+                            <label class="custom-checkbox preferenceCenterCheckbox" data-editorblocktype="Topic" data-purposeid="8688d48f-a030-f011-8c4e-000d3a3848f0" data-purposename="[Company Name]" data-topicid="05d5c7b3-a030-f011-8c4e-000d3a3848f0" data-topicname="Products & Innovations" data-optinwhenchecked="true">
+                                <input type="checkbox" id="topicCheckbox-1748423507229" name="msdynmkt_topicid;optInWhenChecked" value="05d5c7b3-a030-f011-8c4e-000d3a3848f0;true">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">Products & Innovations</span>
+                            </label>
+
+                            <!-- Topic 2 -->
+                            <label class="custom-checkbox preferenceCenterCheckbox" data-editorblocktype="Topic" data-purposeid="8688d48f-a030-f011-8c4e-000d3a3848f0" data-purposename="[Company Name]" data-topicid="8bececbf-a030-f011-8c4e-000d3a3848f0" data-topicname="Events & Webinars" data-optinwhenchecked="true">
+                                <input type="checkbox" id="topicCheckbox-1748423548194" name="msdynmkt_topicid;optInWhenChecked" value="8bececbf-a030-f011-8c4e-000d3a3848f0;true">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">Events & Webinars</span>
+                            </label>
+
+                            <!-- Topic 3 -->
+                            <label class="custom-checkbox preferenceCenterCheckbox" data-editorblocktype="Topic" data-purposeid="8688d48f-a030-f011-8c4e-000d3a3848f0" data-purposename="[Company Name]" data-topicid="e96df03f-113b-f011-b4cc-6045bda0024d" data-topicname="Surveys & Focus Groups" data-optinwhenchecked="true">
+                                <input type="checkbox" id="topicCheckbox-1748423626195" name="msdynmkt_topicid;optInWhenChecked" value="e96df03f-113b-f011-b4cc-6045bda0024d;true">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">Surveys & Focus Groups</span>
+                            </label>
+
+                            <!-- Unsubscribe Option -->
+                            <label class="custom-checkbox preferenceCenterCheckbox" data-editorblocktype="Purpose" data-purposeid="8688d48f-a030-f011-8c4e-000d3a3848f0" data-purposename="[Company Name]" data-topicid="undefined" data-topicname="undefined" data-optinwhenchecked="false">
+                                <input type="checkbox" id="purposeCheckbox-1748939342598" name="msdynmkt_purposeid;optInWhenChecked" value="8688d48f-a030-f011-8c4e-000d3a3848f0;false">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-label">Unsubscribe</span>
+                            </label>
+                            </div>
+                        </div>
+                    </div>
+
+                  
+
+            
+
+                 
+
+                </div>
+            </section>
+
+        <div class="main-container">
+            <!-- ================================
+                 EMAIL SECTION
+                 ================================
+                 {{Contact.EMailAddress1}} is replaced by Dynamics 365
+            -->
+            <section class="email-section" aria-label="Email address and preferences">
+                <div data-editorblocktype="Text"><h2 class="email-title">Communication preference</h2></div>
+                
+                <div class="preferenceCenterBlock" data-editorblocktype="ContactOptIn" data-channels="Email">
+                    <label class="contactOptInLabel" id="contactOptInDropdown-label" for="contactOptInDropdown" style="display:none;"></label>
+                    <div class="email-display contactPoint" data-customchannelname="" name="channels" value="Email">
+                        <span value='{{Contact.EMailAddress1}}' data-channeltype='Email'>{{Contact.EMailAddress1}}</span>
+                    </div>
+                    <select id="contactOptInDropdown" class="contactPoint" style="display: none;" data-customchannelname=""></select>
+                </div>
+
+             <div data-editorblocktype="Text"><p class="email-notice">You may unsubscribe from marketing emails on this page, however, we will still send transactional emails (account updates, transactions, regulatory notices) as required by law.</p></div>
+
+                <div class="submit-container" data-editorblocktype="SubmitButton">
+                    <button class="submit-button" type="submit" aria-label="Update preferences" onclick="track_msdynmkt_no_privacy_center_refresh_142612405()">
+                        Update Preferences
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </form>
+    </main>
+
+    <!-- ================================
+         FOOTER
+         ================================ -->
+    <footer role="contentinfo">
+  <!-- Main Footer: Legal text and data controller information -->  
+    <div class="footer-section">
+                <div class="footer-content">
+                    <p class="footer-text">
+[Company Name] is the data controller responsible for processing your personal data in accordance with Regulation (EU) 2016/679 (General Data Protection Regulation). Your consent to receive marketing communications is processed under Article 6(1)(a) GDPR. You have the right to withdraw your consent at any time by updating your preferences through this Privacy Center or by clicking the unsubscribe link in any email we send. You also have rights under Articles 15-22 GDPR, including the right to access, rectify, erase, restrict processing, data portability, and to object to processing of your personal data. For more information about how we process your data, please see our Privacy Policy. To exercise your rights or for data protection inquiries, please contact our Data Protection Officer by using the Contact link on this page.</p>
+        <!-- US CAN-SPAM Footer [Company Name] sends marketing communications in compliance with the CAN-SPAM Act of 2003 (15 U.S.C. § 7704). This preference center allows you to manage which types of commercial email messages you wish to receive from us. You may unsubscribe from marketing emails at any time by updating your preferences here or by clicking the unsubscribe link included in every marketing email we send. Your email preferences will be processed within 10 business days as required by law. For questions about our email practices, please review our Privacy Policy or contact us  using the links on this page.      -->  
+</div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="bottom-footer">
+                <div class="bottom-footer-content">
+                    <span class="copyright">© [Company Name] [Year]</span>
+                    <span class="last-updated">Last updated: Oct-12-2025. V5</span>
+                </div>
+            </div>
+    </footer>
+
+
+
+    <!-- ================================
+         LOADER
+         ================================ -->
+    <div class="loader_container" id="loader" style="display: none">
+        <div class="loader"></div>
+    </div>
+
+</body>
+</html>
