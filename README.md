@@ -27,7 +27,7 @@ This project provides a production-ready HTML template that extends Dynamics 365
 - 📱 **Mobile-first responsive design with Dark Mode support**
 - 🌐 **HTML5 - Modern web standards**
 - 🔒 **GDPR & CAN-SPAM compliant**
-- ⚡ **Email Validator: Checks for genuine email, correct format, and misspellings* 
+- ⚡ **Email Validator: Checks for genuine email, correct format, and misspellings**
 - 💬 **Smart notifications**
 - ✅ **Single-file architecture** 
 
