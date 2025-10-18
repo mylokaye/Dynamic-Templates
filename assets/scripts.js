@@ -1,16 +1,25 @@
+/**
+ * Dynamic Contact Form Validation System
+ *
+ * This script provides comprehensive form validation for a contact form with:
+ * - Name field validation (2+ characters, letters/spaces/hyphens/apostrophes only)
+ * - Email validation (format checking, domain typo detection, disposable email blocking)
+ * - Message field validation (3-2000 character limit)
+ * - Real-time visual feedback (red borders for errors, green for valid)
+ * - Progressive error display (errors show only after user leaves field)
+ * - Form state tracking (button enabled/disabled based on validation)
+ * - Prevented layout shifts (helper text always reserves space)
+ */
 
+// ============================================================================
+// CONFIGURATION
+// ============================================================================
 
-    
-    // Configuration: brand, redirect, and feedback settings
 const BRAND_NAME = "Truestory";
-
-    
-    const ENABLE_FEEDBACK_BAR = true;
-    const FEEDBACK_BAR_SHOW_DELAY = 3000; // ms before showing feedback bar
-
-    
-    const REDIRECT_URL = null; // Example: "https://google.com"
-    const REDIRECT_DELAY_MS = 2000; // Delay (ms) before redirect after form submit
+const ENABLE_FEEDBACK_BAR = true;
+const FEEDBACK_BAR_SHOW_DELAY = 3000; // ms before showing feedback bar
+const REDIRECT_URL = null; // Example: "https://google.com"
+const REDIRECT_DELAY_MS = 2000; // Delay (ms) before redirect after form submit
 
 
 
@@ -188,7 +197,10 @@ const TRANSLATIONS = {
             'feedback.notify.error': 'Feedback konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.'
         }
     };
-    
+
+// ============================================================================
+// INTERNATIONALIZATION (i18n)
+// ============================================================================
 
 
 
@@ -311,7 +323,863 @@ const i18n = (function() {
             updatePageContent: updatePageContent
         };
     })();
-    
+
+
+// Email Validation System: Real-time validation with visual feedback
+const EmailValidator = (function() {
+    'use strict';
+
+    // Track if email field has been touched by user
+    let emailTouched = false;
+
+    // Robust email regex pattern
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // More specific email validation pattern (RFC 5322 simplified)
+    const STRICT_EMAIL_REGEX = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Maximum email length (RFC 5321)
+    const MAX_EMAIL_LENGTH = 254;
+
+    // Common domain typos and their corrections
+    const DOMAIN_TYPOS = {
+        'gmial.com': 'gmail.com',
+        'gmai.com': 'gmail.com',
+        'gmil.com': 'gmail.com',
+        'gmal.com': 'gmail.com',
+        'yahooo.com': 'yahoo.com',
+        'yaho.com': 'yahoo.com',
+        'hotmial.com': 'hotmail.com',
+        'hotmail.co': 'hotmail.com',
+        'outlok.com': 'outlook.com',
+        'outlok.co.uk': 'outlook.co.uk',
+        'yahooo.co.uk': 'yahoo.co.uk'
+    };
+
+    // List of disposable/temporary email providers
+    const DISPOSABLE_DOMAINS = [
+        'tempmail.com',
+        'guerrillamail.com',
+        'mailinator.com',
+        '10minutemail.com',
+        'throwaway.email',
+        'temp-mail.org',
+        'maildrop.cc',
+        'mintemail.com',
+        'trashmail.com',
+        'yopmail.com',
+        'fakeinbox.com'
+    ];
+
+    // Error messages
+    const ERROR_MESSAGES = {
+        'required': 'Email required',
+        'invalid_format': 'Enter valid email address',
+        'no_spaces': 'Email cannot contain spaces',
+        'no_consecutive_dots': 'Email cannot contain consecutive dots',
+        'invalid_chars': 'Email contains invalid characters',
+        'too_long': 'Email address is too long (max 254 characters)',
+        'invalid_tld': 'Email must end with .com, .org)',
+        'disposable_email': 'Temporary email addresses are not allowed',
+        'leading_trailing_dots': 'Email cannot start or end with a dot'
+    };
+
+    /**
+     * Get domain typo suggestion if applicable
+     * @param {string} email - Email address
+     * @returns {object} - { hasSuggestion: boolean, suggestion: string|null, correctedEmail: string|null }
+     */
+    function checkDomainTypo(email) {
+        const parts = email.split('@');
+        if (parts.length !== 2) {
+            return { hasSuggestion: false, suggestion: null, correctedEmail: null };
+        }
+
+        const domain = parts[1].toLowerCase();
+        if (DOMAIN_TYPOS[domain]) {
+            const correctedEmail = parts[0] + '@' + DOMAIN_TYPOS[domain];
+            return {
+                hasSuggestion: true,
+                suggestion: `Did you mean ${correctedEmail}?`,
+                correctedEmail: correctedEmail
+            };
+        }
+
+        return { hasSuggestion: false, suggestion: null, correctedEmail: null };
+    }
+
+    /**
+     * Check if email uses a disposable/temporary email provider
+     * @param {string} email - Email address
+     * @returns {boolean} - True if disposable email provider detected
+     */
+    function isDisposableEmail(email) {
+        const domain = email.split('@')[1]?.toLowerCase() || '';
+        return DISPOSABLE_DOMAINS.includes(domain);
+    }
+
+    /**
+     * Validate email format with enhanced checks
+     * @param {string} email - Email address to validate
+     * @returns {object} - { isValid: boolean, error: string|null, suggestion: string|null, correctedEmail: string|null }
+     */
+    function validateEmailFormat(email) {
+        // Check if empty
+        if (!email || email.trim() === '') {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.required,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        const trimmedEmail = email.trim();
+
+        // Check length
+        if (trimmedEmail.length > MAX_EMAIL_LENGTH) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.too_long,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check for spaces
+        if (trimmedEmail.includes(' ')) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.no_spaces,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check for consecutive dots
+        if (trimmedEmail.includes('..')) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.no_consecutive_dots,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check for leading/trailing dots in local part
+        const parts = trimmedEmail.split('@');
+        if (parts.length === 2 && (parts[0].startsWith('.') || parts[0].endsWith('.'))) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.leading_trailing_dots,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check basic format first
+        if (!EMAIL_REGEX.test(trimmedEmail)) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.invalid_format,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check strict format
+        if (!STRICT_EMAIL_REGEX.test(trimmedEmail)) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.invalid_chars,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check for valid TLD (at least 2 characters after last dot)
+        const domain = parts[1] || '';
+        const lastDot = domain.lastIndexOf('.');
+        if (lastDot === -1 || domain.length - lastDot - 1 < 2) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.invalid_tld,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check for disposable email
+        if (isDisposableEmail(trimmedEmail)) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.disposable_email,
+                suggestion: null,
+                correctedEmail: null
+            };
+        }
+
+        // Check for domain typos
+        const typoCheck = checkDomainTypo(trimmedEmail);
+        if (typoCheck.hasSuggestion) {
+            return {
+                isValid: false,
+                error: 'This domain looks incorrect.',
+                suggestion: typoCheck.suggestion,
+                correctedEmail: typoCheck.correctedEmail
+            };
+        }
+
+        return {
+            isValid: true,
+            error: null,
+            suggestion: null,
+            correctedEmail: null
+        };
+    }
+
+    /**
+     * Update the email field UI based on validation result
+     * @param {HTMLElement} inputElement - The email input element
+     * @param {boolean} isValid - Whether the email is valid
+     * @param {object} validationResult - Full validation result with error, suggestion, correctedEmail
+     */
+    function updateFieldUI(inputElement, isValid, validationResult) {
+        if (!inputElement) return;
+
+        const fieldBlock = inputElement.closest('.textFormFieldBlock');
+        if (!fieldBlock) return;
+
+        const helperText = fieldBlock.querySelector('.field-helper-text');
+
+        if (isValid) {
+            // Valid state
+            inputElement.classList.remove('error');
+            fieldBlock.classList.remove('has-error');
+
+            if (helperText) {
+                helperText.textContent = "We'll email you a response to your message.";
+                helperText.style.color = '#828282';
+                helperText.classList.add('visible');
+            }
+        } else {
+            // Invalid state - only show error if field has been touched
+            if (emailTouched) {
+                inputElement.classList.add('error');
+                fieldBlock.classList.add('has-error');
+
+                if (helperText) {
+                    let message = validationResult.error || 'Please enter a valid email address';
+
+                    // Add suggestion if available
+                    if (validationResult.suggestion) {
+                        message += ` ${validationResult.suggestion}`;
+                    }
+
+                    helperText.textContent = message;
+                    helperText.style.color = '#c13515';
+                    helperText.classList.add('visible');
+
+                    // Add ARIA attributes for accessibility
+                    inputElement.setAttribute('aria-describedby', 'email-error-' + Date.now());
+                    helperText.setAttribute('id', 'email-error-' + Date.now());
+                }
+            } else {
+                // Field not touched yet, clear any existing error styling
+                inputElement.classList.remove('error');
+                fieldBlock.classList.remove('has-error');
+                if (helperText) {
+                    helperText.classList.remove('visible');
+                }
+            }
+        }
+    }
+
+    /**
+     * Validate email field and provide feedback
+     * @param {HTMLElement} inputElement - The email input element
+     * @returns {boolean} - Whether email is valid
+     */
+    function validateField(inputElement) {
+        if (!inputElement) return false;
+
+        const email = inputElement.value;
+        const validation = validateEmailFormat(email);
+
+        updateFieldUI(inputElement, validation.isValid, validation);
+
+        return validation.isValid;
+    }
+
+    /**
+     * Auto-correct email with suggested correction
+     * @param {HTMLElement} inputElement - The email input element
+     * @param {string} correctedEmail - The corrected email address
+     */
+    function acceptSuggestion(inputElement, correctedEmail) {
+        if (!inputElement) return;
+
+        inputElement.value = correctedEmail;
+        validateField(inputElement);
+    }
+
+    /**
+     * Debounce function for input events
+     * @param {function} func - Function to debounce
+     * @param {number} wait - Wait time in milliseconds
+     * @returns {function} - Debounced function
+     */
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    /**
+     * Initialize email validation for the form
+     */
+    function init() {
+        const emailInput = document.querySelector('input[name="emailaddress1"]');
+        if (!emailInput) return;
+
+        // Add aria-describedby for accessibility
+        emailInput.setAttribute('aria-label', 'Email address');
+
+        // Mark field as touched on first interaction
+        const markAsTouched = function() {
+            emailTouched = true;
+        };
+
+        // Validate on blur (when user leaves the field)
+        emailInput.addEventListener('blur', function() {
+            markAsTouched();
+            this.value = this.value.trim();
+            validateField(this);
+        });
+
+        // Only validate on input to update form button state, but don't show errors
+        emailInput.addEventListener('input', function() {
+            // Validate silently (for button state) but don't show error messages until blur
+            if (emailTouched) {
+                validateField(this);
+            }
+        });
+
+        // Clear error state when field is focused and user starts typing fresh
+        emailInput.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.classList.remove('error');
+                const fieldBlock = this.closest('.textFormFieldBlock');
+                if (fieldBlock) {
+                    fieldBlock.classList.remove('has-error');
+                    const helperText = fieldBlock.querySelector('.field-helper-text');
+                    if (helperText) {
+                        helperText.textContent = "We'll email you a response to your message.";
+                        helperText.style.color = '#828282';
+                        helperText.classList.add('visible');
+                    }
+                }
+            }
+        });
+
+        // Allow accepting suggestions by pressing Enter or Tab
+        emailInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === 'Tab') {
+                const fieldBlock = this.closest('.textFormFieldBlock');
+                const helperText = fieldBlock?.querySelector('.field-helper-text');
+
+                // Check if helper text contains a suggestion
+                if (helperText && helperText.textContent.includes('Did you mean')) {
+                    const match = helperText.textContent.match(/Did you mean ([\w.-]+@[\w.-]+\.\w+)\?/);
+                    if (match) {
+                        acceptSuggestion(this, match[1]);
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Public API
+    return {
+        init: init,
+        validateField: validateField,
+        validateEmailFormat: validateEmailFormat,
+        acceptSuggestion: acceptSuggestion,
+        checkDomainTypo: checkDomainTypo,
+        isDisposableEmail: isDisposableEmail
+    };
+})();
+
+
+// Name Validation System: Real-time validation with visual feedback
+const NameValidator = (function() {
+    'use strict';
+
+    // Minimum length for names
+    const MIN_NAME_LENGTH = 2;
+
+    // Valid name characters: letters, spaces, hyphens, apostrophes
+    const NAME_REGEX = /^[a-zA-Z\s\-']+$/;
+
+    // Track which fields have been touched by user
+    const touchedFields = new Map();
+
+    // Error messages
+    const ERROR_MESSAGES = {
+        'required': 'This field is required',
+        'too_short': `Name must be at least ${MIN_NAME_LENGTH} characters`,
+        'invalid_chars': 'Name can only contain letters, spaces, hyphens, and apostrophes',
+        'leading_trailing_space': 'Name cannot start or end with a space'
+    };
+
+    /**
+     * Validate name format
+     * @param {string} name - Name to validate
+     * @returns {object} - { isValid: boolean, error: string|null }
+     */
+    function validateNameFormat(name) {
+        // Check if empty
+        if (!name || name.trim() === '') {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.required
+            };
+        }
+
+        const trimmedName = name.trim();
+
+        // Check for leading/trailing spaces
+        if (name !== trimmedName && (name.startsWith(' ') || name.endsWith(' '))) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.leading_trailing_space
+            };
+        }
+
+        // Check minimum length
+        if (trimmedName.length < MIN_NAME_LENGTH) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.too_short
+            };
+        }
+
+        // Check for valid characters only
+        if (!NAME_REGEX.test(trimmedName)) {
+            return {
+                isValid: false,
+                error: ERROR_MESSAGES.invalid_chars
+            };
+        }
+
+        return {
+            isValid: true,
+            error: null
+        };
+    }
+
+    /**
+     * Update the name field UI based on validation result
+     * @param {HTMLElement} inputElement - The name input element
+     * @param {boolean} isValid - Whether the name is valid
+     * @param {object} validationResult - Full validation result with error
+     */
+    function updateFieldUI(inputElement, isValid, validationResult) {
+        if (!inputElement) return;
+
+        const fieldName = inputElement.name;
+        const isTouched = touchedFields.get(fieldName) || false;
+
+        const fieldBlock = inputElement.closest('.textFormFieldBlock');
+        if (!fieldBlock) return;
+
+        const helperText = fieldBlock.querySelector('.field-helper-text');
+
+        if (isValid) {
+            // Valid state
+            inputElement.classList.remove('error');
+            fieldBlock.classList.remove('has-error');
+
+            if (helperText) {
+                helperText.textContent = '';
+                helperText.style.color = '#828282';
+                helperText.classList.remove('visible');
+            }
+        } else {
+            // Invalid state - only show error if field has been touched
+            if (isTouched) {
+                inputElement.classList.add('error');
+                fieldBlock.classList.add('has-error');
+
+                if (helperText) {
+                    helperText.textContent = validationResult.error || 'Please enter a valid name';
+                    helperText.style.color = '#c13515';
+                    helperText.classList.add('visible');
+
+                    // Add ARIA attributes for accessibility
+                    inputElement.setAttribute('aria-describedby', 'name-error-' + Date.now());
+                    helperText.setAttribute('id', 'name-error-' + Date.now());
+                }
+            } else {
+                // Field not touched yet, clear any existing error styling
+                inputElement.classList.remove('error');
+                fieldBlock.classList.remove('has-error');
+                if (helperText) {
+                    helperText.classList.remove('visible');
+                }
+            }
+        }
+    }
+
+    /**
+     * Validate name field and provide feedback
+     * @param {HTMLElement} inputElement - The name input element
+     * @returns {boolean} - Whether name is valid
+     */
+    function validateField(inputElement) {
+        if (!inputElement) return false;
+
+        const name = inputElement.value;
+        const validation = validateNameFormat(name);
+
+        updateFieldUI(inputElement, validation.isValid, validation);
+
+        return validation.isValid;
+    }
+
+    /**
+     * Debounce function for input events
+     * @param {function} func - Function to debounce
+     * @param {number} wait - Wait time in milliseconds
+     * @returns {function} - Debounced function
+     */
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    /**
+     * Initialize name validation for a specific field
+     * @param {string} fieldName - Name attribute of the field ('firstname' or 'lastname')
+     */
+    function init(fieldName) {
+        const nameInput = document.querySelector(`input[name="${fieldName}"]`);
+        if (!nameInput) return;
+
+        // Initialize touched state
+        touchedFields.set(fieldName, false);
+
+        // Add aria label for accessibility
+        nameInput.setAttribute('aria-label', fieldName === 'firstname' ? 'First name' : 'Last name');
+
+        // Mark field as touched on first change
+        const markAsTouched = function() {
+            touchedFields.set(fieldName, true);
+        };
+
+        // Mark field as touched on blur (when user leaves the field)
+        nameInput.addEventListener('blur', function() {
+            markAsTouched();
+            this.value = this.value.trim();
+            validateField(this);
+        });
+
+        // Only validate on input to update form button state, but don't show errors
+        nameInput.addEventListener('input', function() {
+            // Mark as touched but validate silently (for button state)
+            if (touchedFields.get(fieldName)) {
+                validateField(this);
+            }
+        });
+
+        // Clear error state when field is focused and empty
+        nameInput.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.classList.remove('error');
+                const fieldBlock = this.closest('.textFormFieldBlock');
+                if (fieldBlock) {
+                    fieldBlock.classList.remove('has-error');
+                    const helperText = fieldBlock.querySelector('.field-helper-text');
+                    if (helperText) {
+                        helperText.classList.remove('visible');
+                    }
+                }
+            }
+        });
+    }
+
+    // Public API
+    return {
+        init: init,
+        validateField: validateField,
+        validateNameFormat: validateNameFormat
+    };
+})();
+
+
+// Message Validation System: Character counter and validation
+const MessageValidator = (function() {
+    'use strict';
+
+    // Track if message field has been touched by user
+    let messageTouched = false;
+
+    const MIN_LENGTH = 3;
+    const MAX_LENGTH = 2000;
+
+    /**
+     * Update character counter display (hidden from user view)
+     * @param {HTMLElement} textareaElement - The textarea element
+     */
+    function updateCharacterCount(textareaElement) {
+        if (!textareaElement) return;
+
+        // Character counter is only used internally for validation
+        // No visual display to user
+    }
+
+    /**
+     * Validate message field and provide feedback
+     * @param {HTMLElement} textareaElement - The textarea element
+     * @returns {boolean} - Whether message is valid
+     */
+    function validateField(textareaElement) {
+        if (!textareaElement) return false;
+
+        const message = textareaElement.value;
+        const isValid = message.trim().length >= MIN_LENGTH && message.length <= MAX_LENGTH;
+
+        const fieldBlock = textareaElement.closest('.textFormFieldBlock');
+        if (!fieldBlock) return isValid;
+
+        const helperText = fieldBlock.querySelector('.field-helper-text');
+
+        if (isValid) {
+            // Valid state
+            textareaElement.classList.remove('error');
+            fieldBlock.classList.remove('has-error');
+
+            if (helperText) {
+                helperText.textContent = '';
+                helperText.classList.remove('visible');
+            }
+        } else {
+            // Invalid state - only show error if field has been touched
+            if (messageTouched) {
+                textareaElement.classList.add('error');
+                fieldBlock.classList.add('has-error');
+
+                if (helperText) {
+                    if (message.trim().length === 0) {
+                        helperText.textContent = 'Message is required';
+                    } else if (message.trim().length < MIN_LENGTH) {
+                        helperText.textContent = `Message must be at least ${MIN_LENGTH} characters`;
+                    } else if (message.length > MAX_LENGTH) {
+                        helperText.textContent = `Message cannot exceed ${MAX_LENGTH} characters`;
+                    }
+                    helperText.style.color = '#c13515';
+                    helperText.classList.add('visible');
+                }
+            } else {
+                // Field not touched yet, clear any existing error styling
+                textareaElement.classList.remove('error');
+                fieldBlock.classList.remove('has-error');
+                if (helperText) {
+                    helperText.classList.remove('visible');
+                }
+            }
+        }
+
+        return isValid;
+    }
+
+    /**
+     * Initialize message validation for the form
+     */
+    function init() {
+        const messageInput = document.querySelector('textarea[name="description"]');
+        if (!messageInput) return;
+
+        // Add aria label
+        messageInput.setAttribute('aria-label', 'Message');
+
+        // Mark field as touched on first interaction
+        const markAsTouched = function() {
+            messageTouched = true;
+        };
+
+        // Update counter on input, but don't show validation errors until blur
+        messageInput.addEventListener('input', function() {
+            updateCharacterCount(this);
+            // Only validate silently (for button state) if already touched
+            if (messageTouched) {
+                validateField(this);
+            }
+        });
+
+        // Show validation errors when user leaves the field
+        messageInput.addEventListener('blur', function() {
+            markAsTouched();
+            validateField(this);
+        });
+
+        // Clear error state when field is focused and empty
+        messageInput.addEventListener('focus', function() {
+            if (this.value === '') {
+                this.classList.remove('error');
+                const fieldBlock = this.closest('.textFormFieldBlock');
+                if (fieldBlock) {
+                    fieldBlock.classList.remove('has-error');
+                }
+            }
+        });
+
+        // Initialize counter display
+        updateCharacterCount(messageInput);
+    }
+
+    // Public API
+    return {
+        init: init,
+        validateField: validateField,
+        updateCharacterCount: updateCharacterCount
+    };
+})();
+
+
+// Form Validation Tracker: Monitor all form fields and update button state
+const FormValidator = (function() {
+    'use strict';
+
+    let formState = {
+        firstname: false,
+        lastname: false,
+        email: false,
+        description: false
+    };
+
+    /**
+     * Update submit button state based on form validation
+     */
+    function updateSubmitButtonState() {
+        const submitButton = document.querySelector('.submit-button');
+        if (!submitButton) return;
+
+        const allValid = Object.values(formState).every(val => val === true);
+        submitButton.disabled = !allValid;
+    }
+
+    /**
+     * Validate a field and update form state
+     */
+    function validateField(fieldName, isValid) {
+        if (fieldName in formState) {
+            formState[fieldName] = isValid;
+            updateSubmitButtonState();
+        }
+    }
+
+    /**
+     * Initialize form validation tracking
+     */
+    function init() {
+        const form = document.querySelector('form#contactForm');
+        if (!form) return;
+
+        // Track first name field (using NameValidator)
+        const firstnameInput = form.querySelector('input[name="firstname"]');
+        if (firstnameInput) {
+            const checkFirstnameValidity = function() {
+                const validation = NameValidator.validateNameFormat(firstnameInput.value);
+                validateField('firstname', validation.isValid);
+            };
+            firstnameInput.addEventListener('blur', checkFirstnameValidity);
+            firstnameInput.addEventListener('input', checkFirstnameValidity);
+        }
+
+        // Track last name field (using NameValidator)
+        const lastnameInput = form.querySelector('input[name="lastname"]');
+        if (lastnameInput) {
+            const checkLastnameValidity = function() {
+                const validation = NameValidator.validateNameFormat(lastnameInput.value);
+                validateField('lastname', validation.isValid);
+            };
+            lastnameInput.addEventListener('blur', checkLastnameValidity);
+            lastnameInput.addEventListener('input', checkLastnameValidity);
+        }
+
+        // Track email field (uses EmailValidator)
+        const emailInput = form.querySelector('input[name="emailaddress1"]');
+        if (emailInput) {
+            // Check email validity immediately on input (for real-time button state)
+            const checkEmailValidity = function() {
+                const validation = EmailValidator.validateEmailFormat(emailInput.value);
+                validateField('email', validation.isValid);
+            };
+
+            // Validate on every input for immediate button state feedback
+            emailInput.addEventListener('input', checkEmailValidity);
+            emailInput.addEventListener('blur', function() {
+                this.value = this.value.trim();
+                checkEmailValidity();
+            });
+        }
+
+        // Track message/description field (using MessageValidator)
+        const descriptionInput = form.querySelector('textarea[name="description"]');
+        if (descriptionInput) {
+            const checkMessageValidity = function() {
+                const validation = MessageValidator.validateField(descriptionInput);
+                // Message is valid if it has at least 3 characters
+                const isValid = descriptionInput.value.trim().length >= 3;
+                validateField('description', isValid);
+            };
+            descriptionInput.addEventListener('blur', checkMessageValidity);
+            descriptionInput.addEventListener('input', checkMessageValidity);
+        }
+
+        // Disable button initially
+        updateSubmitButtonState();
+    }
+
+    /**
+     * Debounce function for input events
+     */
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Public API
+    return {
+        init: init,
+        validateField: validateField
+    };
+})();
+
 
 
 

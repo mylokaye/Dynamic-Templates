@@ -1,4 +1,38 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<!--
+    Contact Form Template for Dynamics 365 Customer Insights Journeys
+
+    OVERVIEW:
+    This is a responsive contact form with comprehensive client-side validation and visual feedback.
+    The form includes real-time field validation with a progressive error display strategy.
+
+    FEATURES:
+    - Name fields: 2+ characters, letters/spaces/hyphens/apostrophes only
+    - Email field: Format validation, domain typo detection, disposable email blocking
+    - Message field: 3-2000 character limit
+    - Visual feedback: Red borders for errors, green for valid fields
+    - Progressive errors: Error messages only show after user leaves field
+    - No layout shifts: Helper text reserves space even when hidden
+    - Button state: "Send message" button disabled until all fields valid
+    - Accessibility: ARIA labels and descriptions for screen readers
+
+    TECHNICAL NOTES FOR MAINTAINERS:
+    - This is a single-file template intended to be copied into Dynamics 365
+    - Preserve Dynamics-specific `name` attributes: `firstname`, `lastname`, `emailaddress1`, `description`
+    - Dynamics-managed blocks use `data-editorblocktype` and `data-targetproperty` attributes
+    - Scripts (see `assets/scripts.js`) expect a submit button with selector `.submit-button`
+      Keep the button class or add `.submit-button` when changing markup
+    - Form validation is handled by three modules in scripts.js:
+      1. NameValidator - validates first/last name fields
+      2. EmailValidator - validates email with advanced checks
+      3. MessageValidator - validates message length
+      4. FormValidator - tracks form state and button enablement
+    - Helper text styling uses `visibility: hidden` + `min-height` to prevent layout shifts
+      Do not change this to `display: none` as it will cause form elements to jump
+    - Terms text color changes based on button state: white when disabled, black when enabled
+-->
+<html>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://go.microsoft.com/fwlink/?linkid=2224838" data-comment="Form extensibility documentation" rel="author">
@@ -11,6 +45,10 @@
     <meta type="xrm/designer/setting" name="type" value="marketing-designer-content-editor-document">
     <meta type="xrm/designer/setting" name="layout-editable" value="marketing-designer-layout-editable">
     <style>
+        /* ====================================================================
+           GLOBAL STYLES & RESET
+           ==================================================================== */
+
         .editor-control-layout html {
             box-sizing: border-box;
             background-color: #fff;
@@ -21,6 +59,10 @@
         .editor-control-layout *:after {
             box-sizing: inherit;
         }
+
+        /* ====================================================================
+           TYPOGRAPHY
+           ==================================================================== */
 
         .marketingForm h1 {
             color: #000;
@@ -232,6 +274,10 @@
             outline-offset: 2px;
         }
 
+        /* ====================================================================
+           BUTTONS & SUBMIT STATES
+           ==================================================================== */
+
         .marketingForm .primaryButton,
         .submitButton {
             font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -261,6 +307,20 @@
             transform: scale(0.98);
         }
 
+        /* Disabled state - grey button when form is incomplete */
+        .marketingForm .primaryButton:disabled,
+        .submitButton:disabled {
+            background: linear-gradient(to right, #c0c0c0 0%, #a0a0a0 50%, #909090 100%);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .marketingForm .primaryButton:disabled:hover,
+        .submitButton:disabled:hover {
+            background: linear-gradient(to right, #c0c0c0 0%, #a0a0a0 50%, #909090 100%);
+            transform: none;
+        }
+
         .marketingForm .secondaryButton {
             font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-weight: 700;
@@ -277,11 +337,7 @@
 
         .marketingForm .error {
             font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-weight: bold;
-            font-size: 8px;
-            margin: 0px;
-            padding: 0px;
-            color: #a80000;
+       
         }
 
         .zero-state-container span {
@@ -447,6 +503,9 @@
             display: inline-block;
         }
 
+        /* ====================================================================
+           FORM FIELDS - INPUT/TEXTAREA STYLING
+           ==================================================================== */
 
         .optionSetFormFieldBlock select,
         .textFormFieldBlock input,
@@ -469,6 +528,7 @@
             transition: border-color 0.15s ease;
         }
 
+        /* FORM FIELDS - FOCUS STATE */
         .optionSetFormFieldBlock select:focus,
         .textFormFieldBlock input:focus,
         .dateTimeFormFieldBlock input:focus,
@@ -480,6 +540,11 @@
             background-color: #ffffff;
         }
 
+        /* ====================================================================
+           FORM VALIDATION STATES
+           ==================================================================== */
+
+        /* Error state: red border when field has error (only after validation) */
         .optionSetFormFieldBlock select.error,
         .textFormFieldBlock input.error,
         .dateTimeFormFieldBlock input.error,
@@ -489,33 +554,79 @@
             border-color: #c13515;
         }
 
-        .textFormFieldBlock.has-error label,
-        .dateTimeFormFieldBlock.has-error label,
-        .lookupFormFieldBlock.has-error label,
-        .optionSetFormFieldBlock.has-error label.block-label,
-        .phoneFormFieldBlock.has-error label {
-            color: #c13515;
+        /* Ensure error border persists when focused */
+        .optionSetFormFieldBlock select.error:focus,
+        .textFormFieldBlock input.error:focus,
+        .dateTimeFormFieldBlock input.error:focus,
+        .lookupFormFieldBlock input.error:focus,
+        .marketingForm textarea.error:focus,
+        div[data-editorblocktype="Captcha"] input.error:focus {
+            border-color: #c13515;
         }
 
-        .textFormFieldBlock.has-error label *,
-        .dateTimeFormFieldBlock.has-error label *,
-        .lookupFormFieldBlock.has-error label *,
-        .optionSetFormFieldBlock.has-error label.block-label *,
-        .phoneFormFieldBlock.has-error label * {
-            color: #c13515;
+        /* Success state: green border for validated fields that are now valid */
+        /* Show green when field has .has-error class (was validated) but no longer has .error class */
+        .textFormFieldBlock.has-error input:not(.error),
+        .textFormFieldBlock.has-error textarea:not(.error),
+        .dateTimeFormFieldBlock.has-error input:not(.error),
+        .lookupFormFieldBlock.has-error input:not(.error),
+        .optionSetFormFieldBlock.has-error select:not(.error) {
+            border-color: #008a4c;
         }
+
+        /* Labels maintain original color - no validation state color changes */
+
+        /* ====================================================================
+           HELPER TEXT & ERROR MESSAGES
+           Important: Uses visibility:hidden + min-height to prevent layout shifts
+           ==================================================================== */
 
         .field-helper-text {
             font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 12px;
+            font-size: 13px;
             color: #828282;
-            margin-top: 2px;
-            line-height: 14px;
-            display: none;
+            margin-top: 6px;
+            line-height: 16px;
+            min-height: 16px;
+            visibility: hidden;
+            overflow: hidden;
         }
 
+        /* Show helper text when visible */
         .field-helper-text.visible {
-            display: block;
+            visibility: visible;
+        }
+
+        /* Error message styling */
+        .textFormFieldBlock.has-error .field-helper-text {
+            font-size: 13px;
+            margin-top: 6px;
+            line-height: 16px;
+        }
+
+        /* Character counter styling - hidden from user view */
+        .character-counter {
+            display: none !important;
+        }
+
+        /* Terms agreement text styling - inactive state (button disabled) */
+        .terms-agreement {
+            color: #ffffff !important;
+            transition: color 0.2s ease;
+        }
+
+        .terms-agreement a {
+            color: #ffffff !important;
+            transition: color 0.2s ease;
+        }
+
+        /* Terms agreement text styling - active state (button enabled) */
+        .submit-button:not(:disabled) ~ .terms-agreement {
+            color: #000000 !important;
+        }
+
+        .submit-button:not(:disabled) ~ .terms-agreement a {
+            color: #0082dd !important;
         }
 
 
@@ -997,7 +1108,7 @@
                                                                     </div>
                                                                     <div class="textFormFieldBlock" data-editorblocktype="TextAreaFormField" data-targetaudience="contact" data-targetproperty="description" data-prefill="false">
                                                                         <textarea id="description-1760778090841" name="description" placeholder=" " title="Description" cols="20" rows="5" maxlength="2000"></textarea>
-                                                                        <label title="Description" for="description-1760778090841">Description</label>
+                                                                        <label title="Description" for="description-1760778090841">Message</label>
                                                                     </div>
                                                                 </th>
                                                             </tr>
@@ -1037,8 +1148,8 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-actions-inner">
-                                                                        <button class="submitButton" type="submit"><span> Send message </span></button>
-                                                                                <p style="text-align: left !important; margin-left: 0 !important; font-size: 14px !important;">By selecting Send message, I agree to the Terms of Service and acknowledge the <a href="https://google.com" target="_blank" rel="noopener noreferrer">Privacy</a> policy.</p>
+                                                                        <button class="submitButton submit-button" type="submit"><span> Send message </span></button>
+                                                                                <p class="terms-agreement" style="text-align: left !important; margin-left: 0 !important; font-size: 14px !important;">By selecting Send message, I agree to the Terms of Service and acknowledge the <a href="https://google.com" target="_blank" rel="noopener noreferrer">Privacy</a> policy.</p>
                                                                     </div>
                                                                 </th>
                                                             </tr>
@@ -1060,6 +1171,42 @@
         </form>
         
     </main>
-    
+    <script src="../assets/scripts.js"></script>
+    <script>
+        /**
+         * Form Initialization
+         *
+         * Initializes all form validators once the DOM is fully loaded.
+         * This ensures all form elements are available before validation is set up.
+         *
+         * Validators initialized (in order):
+         * 1. NameValidator - Validates first/last name fields
+         * 2. EmailValidator - Validates email field with advanced checks
+         * 3. MessageValidator - Validates message textarea
+         * 4. FormValidator - Tracks form state and button enablement
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize name field validators
+            if (typeof NameValidator !== 'undefined') {
+                NameValidator.init('firstname');
+                NameValidator.init('lastname');
+            }
+
+            // Initialize email field validator
+            if (typeof EmailValidator !== 'undefined') {
+                EmailValidator.init();
+            }
+
+            // Initialize message field validator
+            if (typeof MessageValidator !== 'undefined') {
+                MessageValidator.init();
+            }
+
+            // Initialize form state tracker (button enable/disable logic)
+            if (typeof FormValidator !== 'undefined') {
+                FormValidator.init();
+            }
+        });
+    </script>
 </body>
 </html>
