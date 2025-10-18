@@ -12,6 +12,9 @@ This Form has been built from the ground up and is designed to give you complete
 **The Challenge**
 The out-of-the-box setup for Form in Dynamics is limited and customization is minimal. This means that the customer experince when landing on your company's Form is sub-par to what is possible.
 
+View the templates:
+
+Form: https://mylokaye.info/Dynamic-Templates/templates/contact-form.html
 ---
 
 ## 📖 Overview
