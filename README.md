@@ -23,11 +23,11 @@ This project provides a production-ready HTML template that extends Dynamics 365
 
 - 🎨 **Complete brand customization**
 - ♿ **WCAG 2.1 Level AA/AAA accessibility**
-- - 📝 **JSDoc-style code documentation**
+- 📝 **JSDoc-style code documentation**
 - 📱 **Mobile-first responsive design with Dark Mode support**
 - 🌐 **HTML5 - Modern web standards**
 - 🔒 **GDPR & CAN-SPAM compliant**
-- ⚡ **Performance optimized** 
+- ⚡ **Email Validator: Checks for genuine email, correct format, and misspellings* 
 - 💬 **Smart notifications**
 - ✅ **Single-file architecture** 
 
