@@ -19,16 +19,18 @@
     - This is a single-file template intended to be copied into Dynamics 365
     - Preserve Dynamics-specific `name` attributes: `firstname`, `lastname`, `emailaddress1`, `description`
     - Dynamics-managed blocks use `data-editorblocktype` and `data-targetproperty` attributes
-    - Scripts (see `assets/scripts.js`) expect a submit button with selector `.submit-button`
-      Keep the button class or add `.submit-button` when changing markup
-    - Form validation is handled by three modules in scripts.js:
-      1. NameValidator - validates first/last name fields
-      2. EmailValidator - validates email with advanced checks
-      3. MessageValidator - validates message length
-      4. FormValidator - tracks form state and button enablement
+    - Scripts (see `assets/scripts.js`) expect a submit button with class `.submitButton`
+      Keep the button class when changing markup
+    - Form validation is handled by four modules in scripts.js:
+      1. NameValidator - validates first/last name fields (2+ chars, letters/spaces/hyphens/apostrophes)
+      2. EmailValidator - validates email with format checks, domain typo detection, disposable email blocking
+      3. MessageValidator - validates message length (3-2000 characters)
+      4. FormValidator - tracks form state and button enablement (disabled grey until all fields valid)
     - Helper text styling uses `visibility: hidden` + `min-height` to prevent layout shifts
-      Do not change this to `display: none` as it will cause form elements to jump
-    - Terms text color changes based on button state: white when disabled, black when enabled
+      Do not change to `display: none` as it will cause form elements to jump
+    - Field validation colors: red border for errors, green border for validated/valid fields
+    - Button states: grey/disabled until all fields valid, colored/enabled when valid
+    - Equal spacing throughout: 16px vertical padding/gaps between form elements
 --><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,7 +160,7 @@
             padding: 16px 30px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 16px;
         }
 
         .marketing-section h3 {
@@ -187,7 +189,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-top: 8px;
+            margin-top: 16px;
         }
 
         /* Hide the default checkbox */
@@ -606,7 +608,7 @@
             padding: 16px 30px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 16px;
             position: relative;
         }
 
@@ -620,7 +622,7 @@
         }
 
         .consentBlock {
-            padding: 4px 30px;
+            padding: 16px 30px;
         }
 
         .twoOptionFormFieldBlock label.block-label,
