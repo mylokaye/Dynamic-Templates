@@ -22,10 +22,9 @@ This results in an inconsistent customer experience that doesn’t reflect your 
 This project rebuilds the Dynamics 365 form **from the ground up**, using clean HTML5, accessible markup, and fully documented JavaScript.  
 It provides a **drop-in, production-ready template** that gives you:
 
-- Complete control over styling and structure  
-- Accessible, WCAG-compliant form fields  
-- Responsive design with light and dark mode  
-- Email validation, smart notifications, and GDPR compliance
+- Email field validation to improve data quality
+- Accessible, WCAG-compliant with indications for incorrect and correctly filled fields
+- Responsive design with light and dark mode compatibility 
 
 **Preview the live template:**  
 👉 [Contact Form Demo](https://mylokaye.info/Dynamic-Templates/templates/contact-form.html)
