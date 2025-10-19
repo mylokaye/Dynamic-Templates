@@ -24,7 +24,7 @@ Each form type serves a specific purpose in Dynamics 365 Customer Insights marke
     - Registration record creation
 
 - **Preference Centers:**
-  - Purpose: Manage consent preferences
+  - Purpose: Manage consent preferences for contacts
   - Target: Existing contacts
   - Features: Consent management, subscription preferences
   - Full Preference Center documentation: [/docs-pc.md](/docs-pc.md)

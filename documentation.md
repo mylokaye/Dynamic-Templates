@@ -14,6 +14,9 @@
 - Full Form documentation: [/docs-form.md](/docs-form.md)
 - Full Preference Center documentation: [/docs-pc.md](/docs-pc.md)
 
+**Original Dynamcis 365 Exported examples:**
+- Never change these files as they are raw, clean exports.
+/raw](/raw)
 ---
 ## Template Management
 - Always save customized templates under new names to prevent updates from overwriting changes
