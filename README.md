@@ -9,13 +9,26 @@ This fully customizable, WCAG-compliant form template gives you **complete contr
 
 ---
 
-## 💡 The Challenge
+## ⚠️ The Challenge
 
-The default Dynamics 365 form setup is limited and difficult to customize.  
-As a result, the customer experience often falls short of what’s possible with modern web standards.
+The default form setup in Dynamics 365 is rigid and visually outdated.  
+Brand customization is minimal, accessibility support is limited, and modifying layout or logic often breaks the form.  
+This results in an inconsistent customer experience that doesn’t reflect your brand standards or modern UX expectations.
+
+---
+
+## 💡 The Solution
+
+This project rebuilds the Dynamics 365 form **from the ground up**, using clean HTML5, accessible markup, and fully documented JavaScript.  
+It provides a **drop-in, production-ready template** that gives you:
+
+- Complete control over styling and structure  
+- Accessible, WCAG-compliant form fields  
+- Responsive design with light and dark mode  
+- Email validation, smart notifications, and GDPR compliance
 
 **Preview the live template:**  
-[Contact Form Demo](https://mylokaye.info/Dynamic-Templates/templates/contact-form.html)
+👉 [Contact Form Demo](https://mylokaye.info/Dynamic-Templates/templates/contact-form.html)
 
 ---
 
