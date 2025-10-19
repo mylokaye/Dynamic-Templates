@@ -553,9 +553,11 @@ const EmailValidator = (function() {
         const helperText = fieldBlock.querySelector('.field-helper-text');
 
         if (isValid) {
-            // Valid state
+            // Valid state - keep has-error class for green border, just remove error class
             inputElement.classList.remove('error');
-            fieldBlock.classList.remove('has-error');
+            if (emailTouched) {
+                fieldBlock.classList.add('has-error');
+            }
 
             if (helperText) {
                 helperText.textContent = "We'll email you a response to your message.";
@@ -817,9 +819,11 @@ const NameValidator = (function() {
         const helperText = fieldBlock.querySelector('.field-helper-text');
 
         if (isValid) {
-            // Valid state
+            // Valid state - keep has-error class for green border, just remove error class
             inputElement.classList.remove('error');
-            fieldBlock.classList.remove('has-error');
+            if (isTouched) {
+                fieldBlock.classList.add('has-error');
+            }
 
             if (helperText) {
                 helperText.textContent = '';
@@ -995,9 +999,11 @@ const MessageValidator = (function() {
         const helperText = fieldBlock.querySelector('.field-helper-text');
 
         if (isValid) {
-            // Valid state
+            // Valid state - keep has-error class for green border, just remove error class
             textareaElement.classList.remove('error');
-            fieldBlock.classList.remove('has-error');
+            if (messageTouched) {
+                fieldBlock.classList.add('has-error');
+            }
 
             if (helperText) {
                 helperText.textContent = '';
@@ -1116,7 +1122,7 @@ const FormValidator = (function() {
      * Update submit button state based on form validation
      */
     function updateSubmitButtonState() {
-        const submitButton = document.querySelector('.submit-button');
+        const submitButton = document.querySelector('.submitButton');
         if (!submitButton) return;
 
         const allValid = Object.values(formState).every(val => val === true);
@@ -1214,7 +1220,8 @@ const FormValidator = (function() {
     // Public API
     return {
         init: init,
-        validateField: validateField
+        validateField: validateField,
+        updateSubmitButtonState: updateSubmitButtonState
     };
 })();
 
@@ -1338,7 +1345,7 @@ const PreferenceCenter = (function() {
             showLoader();
 
             // Disable submit button
-            const submitButton = document.querySelector('.submit-button');
+            const submitButton = document.querySelector('.submitButton');
             if (submitButton) {
                 submitButton.disabled = true;
                 submitButton.textContent = i18n.t('button.submitting');
