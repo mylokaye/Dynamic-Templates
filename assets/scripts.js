@@ -651,6 +651,18 @@ const EmailValidator = (function() {
         // Add aria-describedby for accessibility
         emailInput.setAttribute('aria-label', 'Email address');
 
+        // Set custom HTML5 validation messages
+        emailInput.addEventListener('invalid', function() {
+            if (this.validity.valueMissing) {
+                this.setCustomValidity('Email is required');
+            } else if (this.validity.typeMismatch) {
+                this.setCustomValidity('Enter a valid email address');
+            }
+        });
+        emailInput.addEventListener('input', function() {
+            this.setCustomValidity('');
+        });
+
         // Mark field as touched on first interaction
         const markAsTouched = function() {
             emailTouched = true;
@@ -888,6 +900,18 @@ const NameValidator = (function() {
         // Add aria label for accessibility
         nameInput.setAttribute('aria-label', fieldName === 'firstname' ? 'First name' : 'Last name');
 
+        // Set custom HTML5 validation messages
+        nameInput.addEventListener('invalid', function() {
+            if (this.validity.valueMissing) {
+                this.setCustomValidity('This field is required');
+            } else if (this.validity.tooShort) {
+                this.setCustomValidity(`Name must be at least ${MIN_NAME_LENGTH} characters`);
+            }
+        });
+        nameInput.addEventListener('input', function() {
+            this.setCustomValidity('');
+        });
+
         // Mark field as touched on first change
         const markAsTouched = function() {
             touchedFields.set(fieldName, true);
@@ -1015,6 +1039,20 @@ const MessageValidator = (function() {
     function init() {
         const messageInput = document.querySelector('textarea[name="description"]');
         if (!messageInput) return;
+
+        // Set custom HTML5 validation messages
+        messageInput.addEventListener('invalid', function() {
+            if (this.validity.valueMissing) {
+                this.setCustomValidity('Message is required');
+            } else if (this.validity.tooShort) {
+                this.setCustomValidity(`Message must be at least ${MIN_LENGTH} characters`);
+            } else if (this.validity.tooLong) {
+                this.setCustomValidity(`Message cannot exceed ${MAX_LENGTH} characters`);
+            }
+        });
+        messageInput.addEventListener('input', function() {
+            this.setCustomValidity('');
+        });
 
         // Add aria label
         messageInput.setAttribute('aria-label', 'Message');

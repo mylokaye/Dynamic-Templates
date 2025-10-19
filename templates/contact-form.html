@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+<!DOCTYPE html><html><!--
     Contact Form Template for Dynamics 365 Customer Insights Journeys
 
     OVERVIEW:
@@ -30,16 +29,14 @@
     - Helper text styling uses `visibility: hidden` + `min-height` to prevent layout shifts
       Do not change this to `display: none` as it will cause form elements to jump
     - Terms text color changes based on button state: white when disabled, black when enabled
--->
-<html>
-<head>
+--><head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://go.microsoft.com/fwlink/?linkid=2224838" data-comment="Form extensibility documentation" rel="author">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap" rel="stylesheet">
     <title>Contact Form</title>
     <meta name="referrer" content="never">
     <meta type="xrm/designer/setting" name="type" value="marketing-designer-content-editor-document">
@@ -275,6 +272,186 @@
         }
 
         /* ====================================================================
+           DYNAMICS CHECKBOX STYLING
+           Apply custom toggle switch to Dynamics TwoOptionFormField checkboxes
+           ==================================================================== */
+
+        /* Container for Dynamics checkbox */
+        .twoOptionFormFieldBlock .twooption_checkbox > div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Hide the default Dynamics checkbox */
+        .twoOptionFormFieldBlock .twooption_checkbox input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* Custom toggle switch for Dynamics checkbox */
+        .twoOptionFormFieldBlock .twooption_checkbox label {
+            font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            line-height: 20px;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Toggle switch container - before the label text */
+        .twoOptionFormFieldBlock .twooption_checkbox label::before {
+            content: '';
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 32px;
+            background-color: #8a8886;
+            border-radius: 16px;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+            order: -1;
+        }
+
+        /* Toggle circle (knob) */
+        .twoOptionFormFieldBlock .twooption_checkbox label::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Checked state - background */
+        .twoOptionFormFieldBlock .twooption_checkbox input[type="checkbox"]:checked + label::before {
+            background-color: #008a4c;
+        }
+
+        /* Checked state - move circle to the right */
+        .twoOptionFormFieldBlock .twooption_checkbox input[type="checkbox"]:checked + label::after {
+            transform: translateX(20px);
+            background-color: #ffffff;
+        }
+
+        /* Add checkmark to the circle when checked */
+        .twoOptionFormFieldBlock .twooption_checkbox input[type="checkbox"]:checked + label::after {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: #008a4c;
+            line-height: 1;
+        }
+
+        /* Focus state for accessibility */
+        .twoOptionFormFieldBlock .twooption_checkbox input[type="checkbox"]:focus + label::before {
+            outline: 2px solid #0078d4;
+            outline-offset: 2px;
+        }
+
+        /* ====================================================================
+           CONSENT TOPIC CHECKBOX STYLING
+           Apply custom toggle switch to consent checkboxes
+           ==================================================================== */
+
+        /* Container for consent checkbox */
+        #consentTopicCheckbox-1760860709984 {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* Custom toggle switch for consent checkbox */
+        #consentTopicCheckbox-1760860709984-label {
+            font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000000;
+            line-height: 20px;
+            margin: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Toggle switch container - before the label text */
+        #consentTopicCheckbox-1760860709984-label::before {
+            content: '';
+            position: relative;
+            display: inline-block;
+            width: 52px;
+            height: 32px;
+            background-color: #8a8886;
+            border-radius: 16px;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+            order: -1;
+        }
+
+        /* Toggle circle (knob) */
+        #consentTopicCheckbox-1760860709984-label::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 3px;
+            top: 3px;
+        }
+
+        /* Checked state - background */
+        #consentTopicCheckbox-1760860709984:checked + #consentTopicCheckbox-1760860709984-label::before {
+            background-color: #008a4c;
+        }
+
+        /* Checked state - move circle to the right */
+        #consentTopicCheckbox-1760860709984:checked + #consentTopicCheckbox-1760860709984-label::after {
+            transform: translateX(20px);
+            background-color: #ffffff;
+        }
+
+        /* Add checkmark to the circle when checked */
+        #consentTopicCheckbox-1760860709984:checked + #consentTopicCheckbox-1760860709984-label::after {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: #008a4c;
+            line-height: 1;
+        }
+
+        /* Focus state for accessibility */
+        #consentTopicCheckbox-1760860709984:focus + #consentTopicCheckbox-1760860709984-label::before {
+            outline: 2px solid #0078d4;
+            outline-offset: 2px;
+        }
+
+        /* ====================================================================
            BUTTONS & SUBMIT STATES
            ==================================================================== */
 
@@ -446,9 +623,6 @@
             padding: 4px 30px;
         }
 
-        .textFormFieldBlock label,
-        .dateTimeFormFieldBlock label,
-        .lookupFormFieldBlock label,
         .twoOptionFormFieldBlock label.block-label,
         .optionSetFormFieldBlock label.block-label,
         .multiOptionSetFormFieldBlock label.block-label,
@@ -465,6 +639,13 @@
             background: transparent;
             padding: 0 4px;
             margin: 0;
+        }
+
+        /* Hide floating labels - using placeholder instead */
+        .textFormFieldBlock label,
+        .dateTimeFormFieldBlock label,
+        .lookupFormFieldBlock label {
+            display: none;
         }
 
         .textFormFieldBlock label *,
@@ -515,7 +696,7 @@
         div[data-editorblocktype="Captcha"] input {
             font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             font-size: 14px;
-            padding: 24px 16px 12px 16px;
+            padding: 18px 16px 18px 16px;
             background-color: #ffffff;
             border: 2px solid #b0b0b0;
             border-radius: 12px;
@@ -538,6 +719,33 @@
             outline: none;
             border-color: #222222;
             background-color: #ffffff;
+        }
+
+        /* PLACEHOLDER ANIMATION - Shrink and move to top left on focus */
+        .textFormFieldBlock input::placeholder,
+        .dateTimeFormFieldBlock input::placeholder,
+        .lookupFormFieldBlock input::placeholder,
+        .marketingForm textarea::placeholder,
+        div[data-editorblocktype="Captcha"] input::placeholder {
+            color: #b0b0b0;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            vertical-align: middle;
+            line-height: 1.4;
+        }
+
+        .textFormFieldBlock input:focus::placeholder,
+        .textFormFieldBlock input:not(:placeholder-shown)::placeholder,
+        .dateTimeFormFieldBlock input:focus::placeholder,
+        .dateTimeFormFieldBlock input:not(:placeholder-shown)::placeholder,
+        .lookupFormFieldBlock input:focus::placeholder,
+        .lookupFormFieldBlock input:not(:placeholder-shown)::placeholder,
+        .marketingForm textarea:focus::placeholder,
+        .marketingForm textarea:not(:placeholder-shown)::placeholder,
+        div[data-editorblocktype="Captcha"] input:focus::placeholder,
+        div[data-editorblocktype="Captcha"] input:not(:placeholder-shown)::placeholder {
+            color: #717171;
+            font-size: 10px;
         }
 
         /* ====================================================================
@@ -602,6 +810,12 @@
             font-size: 13px;
             margin-top: 6px;
             line-height: 16px;
+            display: none !important;
+        }
+
+        /* Hide all helper text - using HTML5 validation instead */
+        .field-helper-text {
+            display: none !important;
         }
 
         /* Character counter styling - hidden from user view */
@@ -1092,23 +1306,24 @@
                                                             <tr>
                                                                 <th class="inner" style="min-width: 5px; padding: 0px; vertical-align: top; word-wrap: break-word; word-break: break-word; font-weight: normal;">
                                                                     <div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetproperty="firstname" data-required="required" data-prefill="prefill">
-                                                                        <input id="firstname-1669975306869" type="text" name="firstname" placeholder=" " title="First Name" maxlength="50" value="" required="required">
+                                                                        <input id="firstname-1669975306869" type="text" name="firstname" placeholder="First Name" title="First Name" minlength="2" maxlength="50" value="" required="required">
                                                                         <label title="First Name" for="firstname-1669975306869">First name</label>
                                                                         <span class="field-helper-text"></span>
                                                                     </div>
                                                                     <div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetproperty="lastname" data-required="required" data-prefill="prefill">
-                                                                        <input id="lastname-1669976849422" type="text" name="lastname" placeholder=" " title="Last Name" maxlength="50" required="required" value="">
+                                                                        <input id="lastname-1669976849422" type="text" name="lastname" placeholder="Last Name" title="Last Name" minlength="2" maxlength="50" required="required" value="">
                                                                         <label title="Last Name" for="lastname-1669976849422">Last name</label>
                                                                         <span class="field-helper-text"></span>
                                                                     </div>
                                                                     <div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetproperty="emailaddress1" data-required="required" data-prefill="prefill">
-                                                                        <input id="emailaddress1-1669977007902" type="email" name="emailaddress1" placeholder=" " title="Email" pattern="[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+(([.]{1}[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+)+?|)@([^@\s\\&quot;&lt;&gt;\)\(\[\]\+:;,\.\-]+(((\.|\+|-|--)[^@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?|)([.][^0-9@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?)" value="" required="required">
+                                                                        <input id="emailaddress1-1669977007902" type="email" name="emailaddress1" placeholder="Email" title="Email" pattern="[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+(([.]{1}[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+)+?|)@([^@\s\\&quot;&lt;&gt;\)\(\[\]\+:;,\.\-]+(((\.|\+|-|--)[^@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?|)([.][^0-9@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?)" value="" required="required">
                                                                         <label title="Email" for="emailaddress1-1669977007902">Email</label>
                                                                         <span class="field-helper-text visible">We'll email you a response to your message.</span>
                                                                     </div>
                                                                     <div class="textFormFieldBlock" data-editorblocktype="TextAreaFormField" data-targetaudience="contact" data-targetproperty="description" data-prefill="false">
-                                                                        <textarea id="description-1760778090841" name="description" placeholder=" " title="Description" cols="20" rows="5" maxlength="2000"></textarea>
+                                                                        <textarea id="description-1760778090841" name="description" placeholder="Message" title="Description" minlength="3" maxlength="2000" required="required"></textarea>
                                                                         <label title="Description" for="description-1760778090841">Message</label>
+                                                                        <span class="field-helper-text"></span>
                                                                     </div>
                                                                 </th>
                                                             </tr>
@@ -1122,57 +1337,67 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div><div data-section="true" class="emptyContainer columns-equal-class wrap-section"><table class="outer" align="center" cellpadding="0" cellspacing="0" style="width: 600px; display: block;">
+                  <tbody>
+                      <tr>
+                          <th style="padding: 10px">
+                  <table style="width: 100%;
+                border-collapse: collapse;" class="containerWrapper tbContainer" cellpadding="0" cellspacing="0">
+                      <tbody>
+                      <tr>
+                          <th data-container="true" class="columnContainer" data-container-width="100" style="vertical-align:top; min-width: 5px; width: 580px; height: 0px;" id="containerf719972cb7b4d81760861103784">
+                          <table width="100%" cellpadding="0" cellspacing="0" style="height: 100%;">
+                              <tbody>
+                              <tr>
+                                  <th class="inner" style="min-width: 5px; padding: 10px; vertical-align: top; word-wrap: break-word; word-break: break-word; word-wrap: break-word; word-break: break-word; font-weight: normal;">
+                                  <div data-editorblocktype="Text" style="margin: 10px;"><h3 style="color: rgb(0, 0, 0); margin: 0px; padding: 0px; line-height: 20px; font-family: Lato, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, Roboto, sans-serif; font-size: 16px; text-align: left; font-weight: 600; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; inline-size: 540px; margin-block: 0px; width: 540px; -webkit-locale: auto;">Marketing</h3></div><div data-editorblocktype="Text" style="margin: 10px;"><p style="margin-right: 0px; padding: 0px; line-height: 17.5px; font-family: Lato, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, Roboto, sans-serif; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; margin-left: 0px !important; font-size: 14px; text-align: left; margin-block: 0px; margin-bottom: 0px; margin-top: 0px; -webkit-locale: auto;">We will send you news, webinars, marketing emails. You can opt out of receiving these at any time by adjusting your preferences in any email we send to you.</p></div><div class="consentBlock" data-editorblocktype="Topic" data-required="false" style="padding: 4px 0px 4px 10px;" data-compliancesettingsid="7f4a6355-1811-4cde-bde3-fee8c85f56b1" data-compliancesettingsname="Company" data-purposeid="10000000-0000-0000-0000-000000000003" data-channels="Email" data-purposename="Commercial" data-topicid="b5cfd151-c1ac-f011-bbd3-7c1e522e1eab" data-topicname="Marketing" data-optinwhenchecked="true" data-prefill="prefill">
+            <div>
+                <input type="checkbox" id="consentTopicCheckbox-1760861074045" name="msdynmkt_topicid;channels;optinwhenchecked" value="b5cfd151-c1ac-f011-bbd3-7c1e522e1eab;Email;true">
+                <label id="consentTopicCheckbox-1760861074045-label" for="consentTopicCheckbox-1760861074045"><p>I agree to marketing messages</p></label>
+            </div>
+        </div></th>
+                              </tr>
+                              </tbody>
+                          </table>
+                          </th>
+                      </tr>
+                      </tbody>
+                  </table>
+                  </th>
+              </tr>
+              </tbody>
+          </table></div><div data-section="true" class="emptyContainer columns-equal-class wrap-section"><table class="outer" align="center" cellpadding="0" cellspacing="0" style="width: 600px; display: block;">
+                  <tbody>
+                      <tr>
+                          <th style="padding: 10px">
+                  <table style="width: 100%;
+                border-collapse: collapse;" class="containerWrapper tbContainer" cellpadding="0" cellspacing="0">
+                      <tbody>
+                      <tr>
+                          <th data-container="true" class="columnContainer" data-container-width="100" style="vertical-align:top; min-width: 5px; width: 580px; height: 0px;" id="container0b9cebbb65bb481760861237198">
+                          <table width="100%" cellpadding="0" cellspacing="0" style="height: 100%;">
+                              <tbody>
+                              <tr>
+                                  <th class="inner" style="min-width: 5px; padding: 10px; vertical-align: top; word-wrap: break-word; word-break: break-word; word-wrap: break-word; word-break: break-word; font-weight: normal;">
+                                  <div data-editorblocktype="SubmitButton" class="submitButtonWrapper"><button class="submitButton" type="submit">
+        <span>Submit</span></button></div><div data-editorblocktype="Text" style="margin: 10px;"><p style="text-align: left;">By selecting Send message, I agree to the Terms of Service and acknowledge the Privacy policy.</p></div></th>
+                              </tr>
+                              </tbody>
+                          </table>
+                          </th>
+                      </tr>
+                      </tbody>
+                  </table>
+                  </th>
+              </tr>
+              </tbody>
+          </table></div>
                 
-                <div data-section="true" class="emptyContainer columns-equal-class wrap-section">
-                    <table class="outer" align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse; width: 600px; display: block;">
-                        <tbody>
-                            <tr>
-                                <th style="padding: 0px">
-                                    <table style="width: 100%; border-collapse: collapse" class="containerWrapper tbContainer" cellpadding="0" cellspacing="0">
-                                        <tbody>
-                                            <tr>
-                                                <th data-container="true" class="columnContainer" data-container-width="100" style="vertical-align: top; min-width: 5px; width: 600px; height: 0px;">
-                                                    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; height: 100%;">
-                                                        <tbody>
-                                                            <tr>
-                                                                <th class="inner" style="min-width: 5px; padding: 0px; vertical-align: top; word-wrap: break-word; word-break: break-word; font-weight: normal;">
-                                                                    <div class="marketing-section">
-                                                                        <h3>Marketing</h3>
-                                                                       <p style="text-align: left !important; margin-left: 0 !important; font-size: 14px !important;">
-  We will send you news, webinars, marketing emails. You can opt out of receiving these at any time by adjusting your preferences in any email we send to you.
-</p>
-                                                                        <div class="marketing-checkbox-wrapper">
-                                                                            <input type="checkbox" id="marketing-consent" name="marketing-consent" value="yes">
-                                                                            <label for="marketing-consent">I want to receive marketing messages</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-actions-inner">
-                                                                        <button class="submitButton submit-button" type="submit"><span> Send message </span></button>
-                                                                                <p class="terms-agreement" style="text-align: left !important; margin-left: 0 !important; font-size: 14px !important;">By selecting Send message, I agree to the Terms of Service and acknowledge the <a href="https://google.com" target="_blank" rel="noopener noreferrer">Privacy</a> policy.</p>
-                                                                    </div>
-                                                                </th>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
-                                                    
-                                                    
-                                                </th>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                
             </div>
         </form>
         
-    </main>
-    <script src="../assets/scripts.js"></script>
-    <script>
+    </main><script src="../assets/scripts.js"></script><script>
         /**
          * Form Initialization
          *
@@ -1207,6 +1432,4 @@
                 FormValidator.init();
             }
         });
-    </script>
-</body>
-</html>
+    </script></body></html>
