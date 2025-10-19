@@ -10,7 +10,7 @@ Create a great experience for your customers and contacts and help them manage t
 This Form has been built from the ground up and is designed to give you complete control over branding, layout, and user experience.
 
 **The Challenge**
-The out-of-the-box setup for Form in Dynamics is limited and customization is minimal. This means that the customer experince when landing on your company's Form is sub-par to what is possible.
+The out-of-the-box setup for Forms in Dynamics is limited and customization is difficult to get right. This means that the customer experince when landing on your company's form is sub-par to what is possible.
 
 View the templates:
 
@@ -30,6 +30,8 @@ This project provides a production-ready HTML template that extends Dynamics 365
 - ⚡ **Email Validator: Checks for genuine email, correct format, and misspellings**
 - 💬 **Smart notifications**
 - ✅ **Single-file architecture** 
+
+Tested on Customer Insights Journeys: 1.1.59247.103
 
 
 ### Coming soon
