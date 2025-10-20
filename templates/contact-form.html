@@ -985,6 +985,86 @@
 
                 border: none;
             }
+
+            /* Thank You Modal Styles */
+            .modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                animation: fadeIn 0.3s ease-out;
+            }
+
+            .modal-overlay.active {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .modal-content {
+                background-color: #ffffff;
+                border-radius: 16px;
+                padding: 48px 40px;
+                max-width: 500px;
+                width: 90%;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+                animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                text-align: center;
+            }
+
+            .modal-icon {
+                width: 64px;
+                height: 64px;
+                margin: 0 auto 24px;
+                background-color: #f0fdf4;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 36px;
+            }
+
+            .modal-content h2 {
+                color: #1b4965;
+                font-size: 28px;
+                font-weight: 700;
+                margin: 0 0 16px 0;
+                font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            }
+
+            .modal-content p {
+                color: #4a5568;
+                font-size: 16px;
+                line-height: 1.6;
+                margin: 0 0 32px 0;
+                font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            }
+
+            .modal-close-btn {
+                background: linear-gradient(135deg, #1b4965 0%, #62b6cb 100%);
+                color: #ffffff;
+                border: none;
+                border-radius: 8px;
+                padding: 12px 32px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            }
+
+            .modal-close-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(27, 73, 101, 0.3);
+            }
+
+            .modal-close-btn:active {
+                transform: translateY(0);
+            }
         </style>
     </head>
 
@@ -1044,7 +1124,7 @@
                               <tbody>
                               <tr>
                                   <th class="inner" style="min-width: 5px; padding: 10px; vertical-align: top; word-wrap: break-word; word-break: break-word; word-wrap: break-word; word-break: break-word; font-weight: normal;">
-                                  <div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetaudience="contact" data-targetproperty="firstname" data-prefill="false"><label title="First Name" for="firstname-1760897778655">First Name</label><input id="firstname-1760897778655" type="text" name="firstname" placeholder="First Name" title="First Name" maxlength="50"></div><div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetaudience="contact" data-targetproperty="lastname" data-required="required" data-prefill="false"><label title="Last Name" for="lastname-1760897781847">Last Name</label><input id="lastname-1760897781847" type="text" name="lastname" placeholder="Last Name" title="Last Name" maxlength="50" required=""></div><div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetaudience="contact" data-targetproperty="emailaddress1" data-prefill="false"><label title="Email" for="emailaddress1-1760897790931">Email</label><input id="emailaddress1-1760897790931" type="email" name="emailaddress1" placeholder="Email" title="Email" pattern="[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+(([.]{1}[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+)+?|)@([^@\s\\&quot;&lt;&gt;\)\(\[\]\+:;,\.\-]+(((\.|\+|-|--)[^@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?|)([.][^0-9@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?)"></div><div class="textFormFieldBlock" data-editorblocktype="TextAreaFormField" data-targetaudience="contact" data-targetproperty="description" data-prefill="false"><label title="Description" for="description-1760897808212">Description</label><textarea id="description-1760897808212" name="description" placeholder="Description" title="Description" cols="20" rows="5" maxlength="2000"></textarea></div><div data-editorblocktype="Divider" style="margin: 20px 10px;"><div class="dividerWrapper" align="center"><table style="padding: 0px; margin: 0px; width: 100%; border-collapse: collapse;" role="presentation" class="" cellpadding="0" cellspacing="0"><tbody><tr style="padding: 0px;"><th style="margin:0px; padding: 0px; vertical-align:top;border-top-width: 2px; border-top-style: solid; border-top-color: #e1dfdd;"><p style="margin: 0px; padding: 0px; line-height: 0px; width: 100%;"><span><!--[if gte mso 9]><br/><![endif]-->&nbsp;</span></p></th></tr></tbody></table></div></div><div data-editorblocktype="Text" style="margin: 10px;"><h2 style="text-align: left;">Newsletter</h2></div><div data-editorblocktype="Text" style="margin: 10px;"><p style="text-align: left;">We will send you news, webinars, marketing emails. You can opt out of receiving these at any time by adjusting your preferences in any email we send to you.</p></div><div class="consentBlock" data-editorblocktype="Topic" data-required="false" style="padding: 4px 10px;" data-compliancesettingsid="7f4a6355-1811-4cde-bde3-fee8c85f56b1" data-compliancesettingsname="Company" data-purposeid="10000000-0000-0000-0000-000000000003" data-channels="Email" data-purposename="Commercial" data-topicid="b5cfd151-c1ac-f011-bbd3-7c1e522e1eab" data-topicname="Marketing" data-optinwhenchecked="true" data-prefill="false">
+                                  <div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetaudience="contact" data-targetproperty="firstname" data-prefill="false" data-required="required"><label title="First Name" for="firstname-1760897778655">First Name</label><input id="firstname-1760897778655" type="text" name="firstname" placeholder="First Name" title="First Name" maxlength="50" required="required"></div><div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetaudience="contact" data-targetproperty="lastname" data-required="required" data-prefill="false"><label title="Last Name" for="lastname-1760897781847">Last Name</label><input id="lastname-1760897781847" type="text" name="lastname" placeholder="Last Name" title="Last Name" maxlength="50" required=""></div><div class="textFormFieldBlock" data-editorblocktype="TextFormField" data-targetaudience="contact" data-targetproperty="emailaddress1" data-prefill="false" data-required="required"><label title="Email" for="emailaddress1-1760897790931">Email</label><input id="emailaddress1-1760897790931" type="email" name="emailaddress1" placeholder="Email" title="Email" pattern="[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+(([.]{1}[^@\s\\&quot;&lt;&gt;\)\(\[\]:;,.]+)+?|)@([^@\s\\&quot;&lt;&gt;\)\(\[\]\+:;,\.\-]+(((\.|\+|-|--)[^@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?|)([.][^0-9@\s\\&quot;&lt;&gt;\)\(\[\]+:;,.\-]+)+?)" required="required"></div><div class="textFormFieldBlock" data-editorblocktype="TextAreaFormField" data-targetaudience="contact" data-targetproperty="description" data-prefill="false" data-required="required"><label title="Description" for="description-1760897808212">Description</label><textarea id="description-1760897808212" name="description" placeholder="Description" title="Description" cols="20" rows="5" maxlength="2000" required="required"></textarea></div><div data-editorblocktype="Divider" style="margin: 20px 10px;"><div class="dividerWrapper" align="center"><table style="padding: 0px; margin: 0px; width: 100%; border-collapse: collapse;" role="presentation" class="" cellpadding="0" cellspacing="0"><tbody><tr style="padding: 0px;"><th style="margin:0px; padding: 0px; vertical-align:top;border-top-width: 2px; border-top-style: solid; border-top-color: #e1dfdd;"><p style="margin: 0px; padding: 0px; line-height: 0px; width: 100%;"><span><!--[if gte mso 9]><br/><![endif]-->&nbsp;</span></p></th></tr></tbody></table></div></div><div data-editorblocktype="Text" style="margin: 10px;"><h2 style="text-align: left;">Newsletter</h2></div><div data-editorblocktype="Text" style="margin: 10px;"><p style="text-align: left;">We will send you news, webinars, marketing emails. You can opt out of receiving these at any time by adjusting your preferences in any email we send to you.</p></div><div class="consentBlock" data-editorblocktype="Topic" data-required="false" style="padding: 4px 10px;" data-compliancesettingsid="7f4a6355-1811-4cde-bde3-fee8c85f56b1" data-compliancesettingsname="Company" data-purposeid="10000000-0000-0000-0000-000000000003" data-channels="Email" data-purposename="Commercial" data-topicid="b5cfd151-c1ac-f011-bbd3-7c1e522e1eab" data-topicname="Marketing" data-optinwhenchecked="true" data-prefill="false">
             <div>
                 <input type="checkbox" id="consentTopicCheckbox-1760896467328" name="msdynmkt_topicid;channels;optinwhenchecked" value="b5cfd151-c1ac-f011-bbd3-7c1e522e1eab;Email;true">
                 <label id="consentTopicCheckbox-1760896467328-label" for="consentTopicCheckbox-1760896467328"><p>Send me the newsletter</p></label>
@@ -1063,4 +1143,104 @@
               </tr>
               </tbody>
           </table></div></div>
-        </form></body></html>
+
+            <!-- Thank You Modal -->
+            <div id="thankYouModal" class="modal-overlay">
+                <div class="modal-content">
+                    <div class="modal-icon">✓</div>
+                    <h2>Thank you!</h2>
+                    <p>We've received your message and appreciate you getting in touch. We'll get back to you as soon as possible.</p>
+                    <button type="button" class="modal-close-btn" onclick="closeThankYouModal()">Close</button>
+                </div>
+            </div>
+        </form><script>
+            let isSubmitting = false;
+            let formInitialized = false;
+
+            // Initialize form submission handler with multiple triggers for compatibility
+            function initializeFormSubmission() {
+                if (formInitialized) return;
+
+                const form = document.querySelector('.marketingForm');
+                if (!form) return;
+
+                formInitialized = true;
+
+                form.addEventListener('submit', function(e) {
+                    // Prevent default submission if already submitting
+                    if (isSubmitting) {
+                        e.preventDefault();
+                        return;
+                    }
+
+                    // Mark as submitting
+                    isSubmitting = true;
+
+                    // Prevent default form submission temporarily
+                    e.preventDefault();
+
+                    // Show thank you modal
+                    showThankYouModal();
+
+                    // Wait 2 seconds, then submit the form and clear it
+                    setTimeout(function() {
+                        // Submit the form
+                        form.submit();
+
+                        // Clear the form
+                        form.reset();
+
+                        // Reset submitting flag
+                        isSubmitting = false;
+                    }, 2000);
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeFormSubmission);
+            } else {
+                initializeFormSubmission();
+            }
+
+            // Also try to initialize after a short delay for Dynamics compatibility
+            setTimeout(initializeFormSubmission, 100);
+            setTimeout(initializeFormSubmission, 500);
+
+            // Initialize modal click-to-close handler
+            function initializeModalCloseHandler() {
+                const modal = document.getElementById('thankYouModal');
+                if (modal && !modal.dataset.closeHandlerAttached) {
+                    modal.dataset.closeHandlerAttached = 'true';
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            closeThankYouModal();
+                        }
+                    });
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeModalCloseHandler);
+            } else {
+                initializeModalCloseHandler();
+            }
+
+            setTimeout(initializeModalCloseHandler, 100);
+
+            function showThankYouModal() {
+                const modal = document.getElementById('thankYouModal');
+                if (modal) {
+                    modal.classList.add('active');
+                    console.log('Modal shown'); // Debug log
+                }
+            }
+
+            function closeThankYouModal() {
+                const modal = document.getElementById('thankYouModal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    console.log('Modal closed'); // Debug log
+                }
+            }
+        </script></body></html>
