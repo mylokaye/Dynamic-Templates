@@ -87,10 +87,15 @@ Attribution appreciated but not required.
 
 ---
 
-## 💬 Support
+## 💬 Additional Resources
 
-**For Dynamics 365 platform questions:**  
-Refer to [Microsoft Learn documentation](https://learn.microsoft.com/en-us/dynamics365/customer-insights/)
+### Microsoft Documentation
+[Microsoft Learn documentation](https://learn.microsoft.com/en-us/dynamics365/customer-insights/)
+- [Design Elements Reference](https://learn.microsoft.com/dynamics365/customer-insights/journeys/content-blocks)
+- [Designer Feature Protection](https://learn.microsoft.com/dynamics365/customer-insights/journeys/designer-feature-protection)
+- [Dynamic Content](https://learn.microsoft.com/dynamics365/customer-insights/journeys/dynamic-email-content)
+- [Email Design Requirements](https://learn.microsoft.com/dynamics365/customer-insights/journeys/email-design)
+
 
 **For template issues:**  
 Ensure all Dynamics 365 required elements remain intact before troubleshooting.
