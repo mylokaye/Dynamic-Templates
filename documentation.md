@@ -413,81 +413,40 @@ Add fonts to text toolbar:
 
 ## Email Templates
 
-### Email-Specific Requirements
+### Overview
 
-**Scope:** All requirements in this section apply ONLY to email templates. Forms and pages are not subject to these constraints.
+Email templates have strict requirements due to email client limitations. Design for the most restrictive clients (T-Online.de and Outlook).
 
-### Feature Support Matrix
+**Critical Requirements:**
+- Width: 700px (preferred) to 800px max
+- Layout: Table-based ONLY (no div layouts)
+- CSS: Inline styles + embedded `<style>` tag
+- No media queries
+- No CSS background images (use `<img>` instead)
+- No border-radius dependencies
+- Include fallback fonts
+- HTML4/XHTML validation
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Inline CSS (`style=""`) | ✓ Required | Primary styling method |
-| `<style>` in `<head>` | ✓ Supported | Secondary method |
-| CSS classes | ✓ Supported | |
-| CSS IDs | ✓ Supported | |
-| Table layouts | ✓ Required | Use for structure |
-| `<div>` layouts | ✗ Avoid | Use only within tables |
-| Images (`<img>`) | ✓ Supported | Include alt text |
-| Animated GIFs | ✓ Supported | |
-| `padding`, `margin`, `max-width` | ✓ Supported | |
-| Headers (`<h1>`-`<h6>`) | ✓ Supported | |
-| Paragraphs (`<p>`) | ✓ Supported | |
-| Media queries | ✗ Not supported | T-Online.de blocks |
-| Background images | ✗ Not supported | Use `<img>` instead |
-| `border-radius` | ✗ Unreliable | Don't rely on it |
-| Web fonts | ⚠️ Limited | MUST include fallbacks |
-| CSS animations | ✗ Not supported | |
-| CSS transitions | ✗ Not supported | |
-| `<video>` | ✗ Not supported | |
-| Form controls | ✗ Not supported | No `<input>` in emails |
+**What's Supported:**
+- ✓ Table layouts
+- ✓ Inline CSS
+- ✓ `<img>` tags
+- ✓ Animated GIFs
+- ✓ Headers, paragraphs
 
-### Email Template Construction Checklist
+**What's NOT Supported:**
+- ✗ Media queries
+- ✗ CSS background-image
+- ✗ Border-radius (unreliable)
+- ✗ Form controls
+- ✗ CSS animations/transitions
+- ✗ `<video>`
 
-- [ ] Width: Set email width to 700px
-- [ ] Layout: Use `<table>` for primary structure
-- [ ] Designer Mode: Add designer meta tag to `<head>`
-- [ ] CSS Method: Apply critical styles inline via `style=""`
-- [ ] Style Block: Add single `<style>` tag in `<head>` for shared styles
-- [ ] Fonts: Include fallback fonts
-- [ ] Images: Use `<img>` tags, not CSS background-image
-- [ ] Links: Keep hyperlink text continuous (no line breaks)
-- [ ] Line Height: Apply `line-height` to `<p>`, not `<span>`
-- [ ] Containers: Add `data-container="true"` for editable areas
-- [ ] Validation: Ensure HTML4/XHTML compliance
-- [ ] No Media Queries: Remove all `@media` rules
-- [ ] No Interactivity: Remove checkboxes, radio buttons, JavaScript
+**For complete email documentation, see:** [docs/email.md](docs/email.md)
 
-### Email Layout Specifications
+### Quick Start
 
-**Width Requirements:**
-- MUST be between 700px and 800px
-- 700px preferred for maximum compatibility
-- Width > 800px MAY cause horizontal clipping
-- Width < 700px MAY cause desktop rendering issues
-
-**Layout Architecture:**
-```html
-<table width="700" align="center">
-  <tr>
-    <td>
-      <!-- Content -->
-    </td>
-  </tr>
-</table>
-```
-
-### Email Client Compatibility Matrix
-
-| Client | Inline CSS | Tables | Media Queries | Background Images | Border Radius | Web Fonts |
-|--------|-----------|--------|---------------|-------------------|---------------|-----------|
-| Outlook | ✓ | ✓ | ✗ | Partial | Partial | ✗ |
-| Gmail | ✓ | ✓ | Partial | ✓ | ✓ | ✓ |
-| T-Online.de | ✓ | ✓ | ✗ | ✗ | Partial | ✗ |
-| Apple Mail | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
-
-**Target Compatibility:** Design for the most restrictive client (T-Online.de/Outlook)
-
-### Minimal Email Template
+Minimal working email template:
 
 ```html
 <!DOCTYPE html>
@@ -496,11 +455,10 @@ Add fonts to text toolbar:
   <meta type="xrm/designer/setting" name="type" value="marketing-designer-content-editor-document">
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    .wrapper { max-width: 700px; margin: 0 auto; background: #fff; }
   </style>
 </head>
 <body>
-  <table class="wrapper" width="700" align="center">
+  <table width="700" align="center">
     <tr>
       <td style="padding: 20px;">
         <div data-container="true">
@@ -520,66 +478,29 @@ Add fonts to text toolbar:
 
 ## Form Templates
 
-### Form-Specific Requirements
+### Overview
 
-Form templates are used for lead capture, surveys, and data collection.
+Form templates are used for lead capture, surveys, event registration, and data collection in Dynamics 365 Customer Insights.
 
-### Form Element Types
+**Key Requirements:**
+- Must include `FormBlock` wrapper
+- At least one input field (typically email)
+- `SubmitButtonBlock` for submission
+- Can use divs or tables for layout
+- HTML5 validation supported
+- Full CSS flexibility
 
-| Element | `data-editorblocktype` | Purpose |
-|---------|----------------------|---------|
-| Form container | `FormBlock` | Wraps entire form |
-| Email field | `Field-email` | Email input |
-| Text field | `Field-firstname`, `Field-lastname` | Text inputs |
-| Checkbox | `Field-checkbox` | Checkboxes |
-| Submit button | `SubmitButtonBlock` | Form submission |
-| Reset button | `ResetButtonBlock` | Form reset |
-| Captcha | `CaptchaBlock` | Captcha verification |
-| Subscription list | `SubscriptionListBlock` | Subscription options |
-| Forward to friend | `ForwardToFriendBlock` | Forward functionality |
+**Common Form Types:**
+- Marketing forms (lead/contact capture)
+- Event registration forms
+- Survey forms
+- Preference centers (consent management)
 
-### Form Template Structure
+**For complete form documentation, see:** [docs/form.md](docs/form.md)
 
-```html
-<div data-container="true">
-  <div data-editorblocktype="FormBlock">
+### Quick Start
 
-    <!-- Email field (required) -->
-    <div data-editorblocktype="Field-email">
-      <!-- Managed by designer -->
-    </div>
-
-    <!-- First name field -->
-    <div data-editorblocktype="Field-firstname">
-      <!-- Managed by designer -->
-    </div>
-
-    <!-- Last name field -->
-    <div data-editorblocktype="Field-lastname">
-      <!-- Managed by designer -->
-    </div>
-
-    <!-- Submit button (required) -->
-    <div data-editorblocktype="SubmitButtonBlock">
-      <!-- Managed by designer -->
-    </div>
-
-  </div>
-</div>
-```
-
-### Form Template Checklist
-
-- [ ] Wrap form fields in `FormBlock` element
-- [ ] Include at least one field (typically email)
-- [ ] Add `SubmitButtonBlock`
-- [ ] Configure field validation in Properties panel
-- [ ] Set form submission behavior
-- [ ] Test form submission
-- [ ] Validate required fields work
-- [ ] Check mobile responsiveness (if applicable)
-
-### Minimal Form Template
+Minimal working form template:
 
 ```html
 <!DOCTYPE html>
@@ -602,34 +523,29 @@ Form templates are used for lead capture, surveys, and data collection.
 
 ## Page Templates
 
-### Page-Specific Requirements
+### Overview
 
-Landing pages and content pages with full CSS flexibility.
+Page templates (landing pages, content pages) have full CSS flexibility and no layout restrictions.
 
-### Page vs. Email Differences
+**Key Features:**
+- Divs preferred, tables allowed
+- Full CSS support (media queries, background images, border radius)
+- Responsive design fully supported
+- Flexible width (no 700-800px constraint)
+- HTML5 validation
+- Media queries allowed
 
-| Feature | Email | Page |
-|---------|-------|------|
-| Layout method | Tables required | Divs preferred, tables allowed |
-| CSS flexibility | Restricted | Full support |
-| Width | 700-800px | Flexible |
-| Media queries | Not supported | Supported |
-| Background images | Not supported | Supported |
-| Border radius | Unreliable | Supported |
-| Responsive design | Limited | Full support |
+**Common Uses:**
+- Landing pages
+- Content pages
+- Thank you pages
+- Unsubscribe pages
 
-### Page Template Checklist
+**For complete page documentation, see:** [docs/page.md](docs/page.md)
 
-- [ ] Add designer meta tag
-- [ ] Structure layout (divs or tables)
-- [ ] Create containers for editable areas
-- [ ] Lock branding sections
-- [ ] Add style configuration
-- [ ] Include responsive CSS (optional)
-- [ ] Test across devices
-- [ ] Validate HTML5
+### Quick Start
 
-### Minimal Page Template
+Minimal working page template:
 
 ```html
 <!DOCTYPE html>
@@ -660,71 +576,19 @@ Landing pages and content pages with full CSS flexibility.
 
 ### Overview
 
-Preference centers are specialized form templates used for managing email subscription preferences.
+Preference centers are specialized form templates for managing email subscription preferences and consent.
 
-### Required D365 Scripts
+**Key Elements:**
+- `Topic` - Individual subscription topic checkbox
+- `Purpose` - Brand/purpose group with unsubscribe option
+- `ContactOptIn` - Email address display and channel selector
 
-These MUST be included before closing `</body>` tag:
+**Requirements:**
+- Must include D365 scripts before closing `</body>` tag
+- Typically uses multi-column layout (3 columns for multi-brand)
+- Each column has container for draggable Topic/Purpose elements
 
-```html
-<script>
-var contextId = "your-context-id";
-var formId = "your-form-id";
-var orgId = "your-org-id";
-var SerializedData = JSON.parse('{"TopicsAndAssociatedPurposes":{...},"ConsentData":{...}}');
-window.DataObject = {
-    contextId,
-    formId,
-    orgId,
-    SerializedData
-};
-</script>
-<script src="/consentcontent/preferencecenter/js/main.dist.js"></script>
-```
-
-### Preference Center Elements
-
-| Element | Purpose | Draggable |
-|---------|---------|-----------|
-| `Topic` | Individual subscription topic checkbox | Yes |
-| `Purpose` | Brand/purpose group with unsubscribe option | Yes |
-| `ContactOptIn` | Email address display and channel selector | Yes |
-
-### Multi-Column Layout
-
-```html
-<table width="100%">
-  <tr>
-    <!-- Column 1 - Brand A -->
-    <td data-container="true" width="33%" style="vertical-align: top;">
-      <div data-editorblocktype="Image">
-        <img src="brand-a-logo.png" alt="Brand A">
-      </div>
-      <!-- Drag Topic elements here from Toolbox -->
-      <!-- Drag Purpose element here from Toolbox -->
-    </td>
-
-    <!-- Column 2 - Brand B -->
-    <td data-container="true" width="33%" style="vertical-align: top;">
-      <!-- Repeat structure -->
-    </td>
-
-    <!-- Column 3 - Brand C -->
-    <td data-container="true" width="33%" style="vertical-align: top;">
-      <!-- Repeat structure -->
-    </td>
-  </tr>
-</table>
-```
-
-### ContactOptIn Element
-
-```html
-<div data-editorblocktype="ContactOptIn" data-channels="Email">
-  <!-- Email display managed by designer -->
-  <!-- Channel selector managed by designer -->
-</div>
-```
+**For complete preference center documentation, see:** [docs/preference-center.md](docs/preference-center.md)
 
 ---
 
