@@ -261,9 +261,9 @@ To make properties customizable in the Dynamics 365 Styles panel:
 - Include usage instructions in template comments
 
 ### Single-File Architecture
-- No external dependencies
-- Embed all CSS in `<style>` tag or inline
-- Self-contained templates
+- External resources ARE allowed (Google Fonts, CDN libraries, etc.)
+- Embed custom CSS in `<style>` tag or inline
+- Templates should be self-contained but can reference external resources
 
 ---
 

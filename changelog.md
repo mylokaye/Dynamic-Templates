@@ -1,6 +1,10 @@
 21-10-2025
 **CLAUDE.md Development Guide**
 
+Clarified Single-File Architecture section (external resources like Google Fonts ARE allowed)
+
+
+
 Added comprehensive development guide for Claude AI assistant
 
 Added Communication Preferences section (simple, clear, minimal responses preferred)
