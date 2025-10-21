@@ -1,4 +1,28 @@
 21-10-2025
+**Documentation Cleanup - Template Details Moved**
+
+Removed all template-specific content from documentation.md (Email, Form, Page, Preference Center sections)
+
+Removed Component Library, LLM Prompt Templates, Anti-Patterns sections
+
+Removed Production Reference Implementations section
+
+documentation.md now focused on core concepts: Custom Attributes, Style Configuration, Design Elements
+
+Updated Table of Contents to link to template-specific docs in docs/ folder
+
+Version updated to 3.1
+
+**Design Element Examples Added**
+
+Added Common Element Examples section to documentation.md (section 3)
+
+Added Form Element Examples section to documentation.md (section 3)
+
+Corrected structure: containers wrap design elements (data-container separate from data-editorblocktype)
+
+All examples now in proper HTML blocks for readability
+
 **Documentation Restructure**
 
 Made documentation.md high-level overview with links to detailed docs
