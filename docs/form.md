@@ -41,12 +41,20 @@ Each form type serves a specific purpose in Dynamics 365 Customer Insights marke
 
 ### Form Element Types
 
+Complete list of available form elements:
+
 | Element | `data-editorblocktype` | Purpose |
 |---------|----------------------|---------|
-| Form container | `FormBlock` | Wraps entire form |
+| Form container | `FormBlock` | Wraps entire form (required) |
 | Email field | `Field-email` | Email input |
-| Text field | `Field-firstname`, `Field-lastname`, etc. | Text inputs |
-| Submit button | `SubmitButtonBlock` | Form submission |
+| Text fields | `Field-firstname`, `Field-lastname` | Text inputs |
+| Custom field | `Field-{name}` | Any CRM field (use logical name) |
+| Checkbox | `Field-checkbox` | Checkbox field |
+| Submit button | `SubmitButtonBlock` | Form submission (required) |
+| Reset button | `ResetButtonBlock` | Form reset |
+| Captcha | `CaptchaBlock` | Captcha verification |
+| Subscription list | `SubscriptionListBlock` | Subscription options |
+| Forward to friend | `ForwardToFriendBlock` | Forward functionality |
 
 ### Default form fields for Contacts & Leads
 
@@ -207,6 +215,43 @@ Using Tailwind CSS enables faster forms due to the CSS being hosted externally.
 
 
 
+### Form Template Structure
+
+Basic form structure requirements:
+
+```html
+<div data-container="true">
+  <div data-editorblocktype="FormBlock">
+
+    <!-- Email field (typically required) -->
+    <div data-editorblocktype="Field-email">
+      <!-- Managed by designer -->
+    </div>
+
+    <!-- First name field (optional) -->
+    <div data-editorblocktype="Field-firstname">
+      <!-- Managed by designer -->
+    </div>
+
+    <!-- Last name field (optional) -->
+    <div data-editorblocktype="Field-lastname">
+      <!-- Managed by designer -->
+    </div>
+
+    <!-- Checkbox example (optional) -->
+    <div data-editorblocktype="Field-checkbox">
+      <!-- Managed by designer -->
+    </div>
+
+    <!-- Submit button (required) -->
+    <div data-editorblocktype="SubmitButtonBlock">
+      <!-- Managed by designer -->
+    </div>
+
+  </div>
+</div>
+```
+
 ### Implementation Checklist
 
 #### Required Elements
@@ -214,4 +259,26 @@ Using Tailwind CSS enables faster forms due to the CSS being hosted externally.
 - [ ] FormBlock wrapper for form content
 - [ ] At least one input field (typically email)
 - [ ] SubmitButtonBlock component
+
+#### Form Configuration
+- [ ] Configure field validation in Properties panel
+- [ ] Set required fields
+- [ ] Configure form submission behavior
+- [ ] Test form submission
+- [ ] Validate error messages display correctly
+
+#### Accessibility
+- [ ] All fields have proper labels
+- [ ] Labels linked to inputs via `for` and `id`
+- [ ] Keyboard navigation works
+- [ ] Error messages visible to screen readers
+- [ ] Sufficient color contrast
+- [ ] Focus indicators visible
+
+#### Testing
+- [ ] Test form submission
+- [ ] Validate required fields
+- [ ] Check mobile responsiveness
+- [ ] Test with screen reader
+- [ ] Verify data saves to CRM correctly
 
