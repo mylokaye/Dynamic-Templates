@@ -225,7 +225,7 @@ Identify element type for designer rendering.
 | `ForwardToFriendBlock` | Forward to friend |
 
 Examples:
-
+```html
 //Image element
 <div data-container="true" data-editorblocktype="Image">
   <img src="image-url.jpg" alt="description">
@@ -286,6 +286,7 @@ Examples:
 
 //Captcha element
 <div data-container="true" data-editorblocktype="CaptchaBlock"></div>
+```
 ---
 
 ### 4. Protection and Locking Features
