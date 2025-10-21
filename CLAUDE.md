@@ -74,6 +74,16 @@ Track project updates and version history.
 
 ---
 
+## Communication Preferences
+
+**Response Style:**
+- Keep responses simple, clear, and minimal
+- State what was done, not how it was done
+- Avoid verbose explanations unless specifically requested
+- Be concise and direct
+
+---
+
 ## Coding Conventions & Style
 
 ### Comment Style

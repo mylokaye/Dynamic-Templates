@@ -3,6 +3,8 @@
 
 Added comprehensive development guide for Claude AI assistant
 
+Added Communication Preferences section (simple, clear, minimal responses preferred)
+
 Added coding conventions section with comment style guidelines (one line per comment)
 
 Added changelog management requirements for tracking all code changes
