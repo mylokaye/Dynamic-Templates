@@ -42,7 +42,7 @@ platform: Dynamics 365 Customer Insights Journeys 1.1.59247.103
 <!DOCTYPE html><html><head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Marketing Form</title>
+        <title>Template</title>
         <meta name="referrer" content="never">
         <meta type="xrm/designer/setting" name="type" value="marketing-designer-content-editor-document">
         <meta type="xrm/designer/setting" name="layout-editable" value="marketing-designer-layout-editable">
