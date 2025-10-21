@@ -224,8 +224,68 @@ Identify element type for designer rendering.
 | `SubscriptionListBlock` | Subscription list |
 | `ForwardToFriendBlock` | Forward to friend |
 
-**Critical Rule:** Do NOT manually edit content inside element `<div>` tags. Use Properties panel instead.
+Examples:
 
+//Image element
+<div data-container="true" data-editorblocktype="Image">
+  <img src="image-url.jpg" alt="description">
+</div>
+
+//Divider element
+<div data-container="true" data-editorblocktype="Divider"></div>
+
+//Button element
+<div data-container="true" data-editorblocktype="Button">
+  <a href="#">Button Text</a>
+</div>
+
+//Content block element
+<div data-container="true" data-editorblocktype="Content" datatype="text">
+  Content here
+</div>
+
+//Marketing-page element
+<div data-container="true" data-editorblocktype="Marketing Page"></div>
+
+//Event element
+<div data-container="true" data-editorblocktype="Event"></div>
+
+//Survey element
+<div data-container="true" data-editorblocktype="Survey"></div>
+
+//Form element
+<div data-container="true" data-editorblocktype="FormBlock">
+  <form></form>
+</div>
+
+//Field element
+<div data-container="true" data-editorblocktype="Field-email">
+  <input type="email" name="email">
+</div>
+
+//Subscription-list element
+<div data-container="true" data-editorblocktype="SubscriptionListBlock"></div>
+
+//Forward-to-a-friend element
+<div data-container="true" data-editorblocktype="ForwardToFriendBlock"></div>
+
+//Do-not-email and Remember-me element
+<div data-container="true" data-editorblocktype="Field-checkbox">
+  <input type="checkbox">
+</div>
+
+//Submit-button element
+<div data-container="true" data-editorblocktype="SubmitButtonBlock">
+  <button type="submit">Submit</button>
+</div>
+
+//Reset-button element
+<div data-container="true" data-editorblocktype="ResetButtonBlock">
+  <button type="reset">Reset</button>
+</div>
+
+//Captcha element
+<div data-container="true" data-editorblocktype="CaptchaBlock"></div>
 ---
 
 ### 4. Protection and Locking Features
