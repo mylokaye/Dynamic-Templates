@@ -33,7 +33,7 @@ Dynamic-Templates/
 │   ├── contact-form.html
 │   └── preference-center.html
 ├── docs/               # Additional documentation
-├── raw/                # Raw/source files
+├── raw/                # Raw/source files (never edit these)
 ├── assets/             # Images and assets
 ├── llm.md              # Technical reference for LLM code generation
 ├── documentation.md    # User-facing documentation

@@ -32,6 +32,19 @@ platform: Dynamics 365 Customer Insights Journeys 1.1.59247.103
 
 ## Introduction & Quick Start
 
+### Required Header code
+
+```html
+<!DOCTYPE html><html><head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Template</title>
+        <meta name="referrer" content="never">
+        <meta type="xrm/designer/setting" name="type" value="marketing-designer-content-editor-document">
+        <meta type="xrm/designer/setting" name="layout-editable" value="marketing-designer-layout-editable">
+        <meta type="xrm/designer/setting" name="additional-fonts" datatype="font" value="<Inter>">
+```
+
 ### What Are Custom Attributes?
 
 Dynamics 365 Customer Insights uses custom HTML attributes to transform standard HTML templates into interactive, drag-and-drop experiences within the marketing designer. These attributes enable:
@@ -207,7 +220,25 @@ Identify element type for designer rendering.
 | `SubscriptionListBlock` | Subscription list |
 | `ForwardToFriendBlock` | Forward to friend |
 
-**Critical Rule:** Do NOT manually edit content inside element `<div>` tags. Use Properties panel instead.
+Examples:
+```html
+//Image element
+<div data-container="true" data-editorblocktype="Image">
+  <img src="image-url.jpg" alt="description">
+</div>
+
+//Divider element
+<div data-container="true" data-editorblocktype="Divider"></div>
+
+//Button element
+<div data-container="true" data-editorblocktype="Button">
+  <a href="#">Button Text</a>
+</div>
+
+//Content block element
+<div data-container="true" data-editorblocktype="Content" datatype="text">
+  Content here
+</div>
 
 ### Common Element Examples
 
