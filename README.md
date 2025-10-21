@@ -1,11 +1,8 @@
 ![Dynamics 365 Customer Insights Journeys Form Template](https://repository-images.githubusercontent.com/1078737337/458a5796-de1b-4306-b985-40e5db41c48d)
 
-# Dynamics 365 Customer Insights Journeys: Customized Form
+# Dynamics 365 Customer Insights Journeys: A collection of templates for Dynamics 365 Forms, Preference Centers and Emails
 
-A **dynamic HTML template** that lets you build your own branded, modern Form in **Dynamics 365 Customer Insights – Journeys**.
-
-Deliver an excellent experience for your customers and contacts while empowering them to manage their consent.  
-This fully customizable, WCAG-compliant form template gives you **complete control over branding, layout, and user experience.**
+These fully customizable, WCAG-compliant templates give you **complete control over branding, layout, and user experience.**
 
 ---
 
@@ -13,18 +10,15 @@ This fully customizable, WCAG-compliant form template gives you **complete contr
 
 The default setup for editing forms, emails and pages in Dynamics 365 is rigid and visually outdated. 
 
-Brand customization is minimal, accessibility support is limited, and modifying layout or logic often breaks the visual design. 
-
-This results in an inconsistent customer experience that doesn’t reflect your brand standards or modern UX expectations.
+Brand customization in Forms and Preference Centers is difficult if you don't know much HTML, and even when making small changes, the results are inconsistent and can quickly become a visual nightmare.
 
 ---
 
 ## 💡 The Solution
 
-This project rebuilds the Dynamics 365 form **from the ground up**, using clean HTML5, accessible markup, and fully documented JavaScript.  
+This project rebuilds the Dynamics 365 forms and preference centers **from the ground up**, using clean HTML5, accessible markup, and fully documented JavaScript.  
 It provides a **drop-in, production-ready template** that gives you:
 
-- Email field validation to improve data quality
 - Accessible, WCAG-compliant with indications for incorrect and correctly filled fields
 - Responsive design with light and dark mode compatibility 
 
@@ -35,7 +29,7 @@ It provides a **drop-in, production-ready template** that gives you:
 
 ## 📖 Overview
 
-This project provides a production-ready HTML template that extends the default Dynamics 365 form with:
+This project provides a production-ready HTML template that extends the default Dynamics 365 templates with:
 
 - 🎨 **Full brand customization**
 - ♿ **WCAG 2.1 Level AA/AAA accessibility**
@@ -45,7 +39,6 @@ This project provides a production-ready HTML template that extends the default 
 - 🔒 **GDPR & CAN-SPAM compliance**
 - ⚡ **Email validation** (genuine domain check, format validation, common misspellings)
 - 💬 **Smart inline notifications**
-- ✅ **Single-file architecture** (no external dependencies)
 
 > Tested on: **Customer Insights Journeys 1.1.59247.103**
 
@@ -53,17 +46,18 @@ This project provides a production-ready HTML template that extends the default 
 
 ### 🧭 Coming Soon
 
-- 🌐 **Multi-language support** – English, German, and Chinese, with auto-detection
+ **Multi-language support** – English, German, and Chinese, with auto-detection
+ **Preference Center and Email templates
 
 ---
 
 ## 🚀 Quick Start
 
 1. Create a new form in **Dynamics 365 Customer Insights – Journeys**  
-2. Open the HTML editor  
-3. Paste the contents of this file:  
-   [contact-form.html](https://github.com/mylokaye/Dynamic-Templates/blob/ca7172bff2b14a1578c59f51b6df1cb71ec2a9e6/templates/contact-form.html)  
-4. Save and test in a live journey
+2. Open the HTML editor
+3. Open the temolates folder and choose the form or preference center template
+4. Paste the contents of that file into the Dynamics HTML editor
+5. Save and test in a live journey
 
 ---
 
