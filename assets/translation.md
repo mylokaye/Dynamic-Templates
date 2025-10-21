@@ -1,4 +1,4 @@
-# Page Translation Script with Optional Toggle for Development
+# Page Translation Script for Forms
 
 This script enables dynamic translation of page text based on the language in the URL or the user's browser preference. It includes an **optional toggle button** for testing in development.
 
