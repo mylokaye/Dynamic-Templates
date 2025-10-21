@@ -1,4 +1,14 @@
 21-10-2025
+**Design Element Examples Added**
+
+Added Common Element Examples section to documentation.md (section 3)
+
+Added Form Element Examples section to documentation.md (section 3)
+
+Corrected structure: containers wrap design elements (data-container separate from data-editorblocktype)
+
+All examples now in proper HTML blocks for readability
+
 **Documentation Restructure**
 
 Made documentation.md high-level overview with links to detailed docs

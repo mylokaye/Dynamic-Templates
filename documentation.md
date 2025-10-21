@@ -213,6 +213,121 @@ Identify element type for designer rendering.
 
 **Critical Rule:** Do NOT manually edit content inside element `<div>` tags. Use Properties panel instead.
 
+### Common Element Examples
+
+**Text Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Text">
+    <h1>Heading</h1>
+    <p>Paragraph text</p>
+  </div>
+</div>
+```
+
+**Image Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Image">
+    <img src="image-url.jpg" alt="description">
+  </div>
+</div>
+```
+
+**Button Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Button">
+    <a href="#">Button Text</a>
+  </div>
+</div>
+```
+
+**Divider Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Divider"></div>
+</div>
+```
+
+**Content Block Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Content" datatype="text">
+    Content here
+  </div>
+</div>
+```
+
+**Marketing Page Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Marketing Page"></div>
+</div>
+```
+
+**Event Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Event"></div>
+</div>
+```
+
+**Survey Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="Survey"></div>
+</div>
+```
+
+### Form Element Examples
+
+**Form with Fields:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="FormBlock">
+
+    <!-- Email field -->
+    <div data-editorblocktype="Field-email"></div>
+
+    <!-- Checkbox field -->
+    <div data-editorblocktype="Field-checkbox"></div>
+
+    <!-- Submit button -->
+    <div data-editorblocktype="SubmitButtonBlock"></div>
+
+  </div>
+</div>
+```
+
+**Subscription List Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="SubscriptionListBlock"></div>
+</div>
+```
+
+**Forward to Friend Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="ForwardToFriendBlock"></div>
+</div>
+```
+
+**Reset Button Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="ResetButtonBlock"></div>
+</div>
+```
+
+**Captcha Element:**
+```html
+<div data-container="true">
+  <div data-editorblocktype="CaptchaBlock"></div>
+</div>
+```
+
 ---
 
 ### 4. Protection and Locking Features
