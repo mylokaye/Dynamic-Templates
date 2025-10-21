@@ -1,3 +1,21 @@
+21-10-2025
+**CLAUDE.md Development Guide**
+
+Added comprehensive development guide for Claude AI assistant
+
+Added coding conventions section with comment style guidelines (one line per comment)
+
+Added changelog management requirements for tracking all code changes
+
+Added file organization guidelines (new templates in /templates/ folder)
+
+Added protected sections rule (always ask before modifying headers)
+
+Updated accessibility requirements to be CRITICAL priority (WCAG 2.1 AA minimum)
+
+Added primary workflows documentation (create templates, modify templates, add features, fix bugs)
+
+
 18-10-2025
 **Email Validation Enhancements
 **

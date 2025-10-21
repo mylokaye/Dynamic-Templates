@@ -74,6 +74,42 @@ Track project updates and version history.
 
 ---
 
+## Coding Conventions & Style
+
+### Comment Style
+- **One line per comment** - Keep all comments concise and on a single line
+- **Always add comments** - When adding new code, include explanatory comments
+- **Example:**
+  ```html
+  <!-- Brand color configuration for primary elements -->
+  <meta type="xrm/designer/setting" name="brand-color" value="#0078d4" datatype="color" label="Brand Color">
+
+  <!-- Main content container with drag-and-drop support -->
+  <div data-container="true">
+  ```
+
+### Changelog Management
+- **Always update `changelog.md`** when making changes
+- **Keep entries simple** - Brief description of what was added/removed/modified
+- **Format:**
+  ```markdown
+  ## [Date] - [Template Name or Feature]
+  - Added: [feature description]
+  - Modified: [change description]
+  - Removed: [what was removed]
+  ```
+
+### File Organization
+- **New templates** - Always create in `/templates/` folder
+- **No naming conventions** - Use descriptive names as appropriate
+- **No backups needed** - Git handles versioning, no need for manual backups or copies
+
+### Protected Sections
+- **Always ask before modifying headers** - Header sections require approval before changes
+- **Preserve Dynamics 365 attributes** - Never remove or modify `data-container`, `data-editorblocktype`, or `property-reference` attributes
+
+---
+
 ## Template Development Guidelines
 
 ### Before Creating or Modifying Templates
@@ -149,6 +185,8 @@ To make properties customizable in the Dynamics 365 Styles panel:
 
 ## Common Development Tasks
 
+**Primary workflows:** Create new templates, modify existing templates, add features, fix bugs
+
 ### Task 1: Create a New Email Template
 
 1. Start with the production email template in `llm.md` (line 1414)
@@ -189,12 +227,16 @@ To make properties customizable in the Dynamics 365 Styles panel:
 
 ## Code Quality Standards
 
-### Accessibility
-- **WCAG 2.1 Level AA minimum**
-- Include alt text on all images
-- Proper heading hierarchy (h1, h2, h3)
-- Sufficient color contrast
-- Semantic HTML5 elements
+### Accessibility (CRITICAL)
+- **ALWAYS ensure files adhere to accessibility guidelines**
+- **WCAG 2.1 Level AA minimum** (AAA preferred where possible)
+- Include descriptive alt text on all images
+- Proper heading hierarchy (h1, h2, h3) - no skipping levels
+- Sufficient color contrast ratios (4.5:1 for normal text, 3:1 for large text)
+- Semantic HTML5 elements (use proper tags like `<nav>`, `<main>`, `<article>`)
+- Form labels properly associated with inputs
+- Keyboard navigation support
+- Screen reader compatibility
 
 ### Email Client Compatibility
 - Test for lowest common denominator (T-Online.de, Outlook)
@@ -233,6 +275,10 @@ To make properties customizable in the Dynamics 365 Styles panel:
 4. **MUST NOT** manually edit content inside editorblocktype divs
 5. **MUST** use only one `<style>` tag per document
 6. **MUST** reference style settings in CSS/HTML to appear in Styles panel
+7. **MUST** ask before modifying header sections
+8. **MUST** adhere to accessibility guidelines (WCAG 2.1 AA minimum)
+9. **MUST** update changelog.md when making changes
+10. **MUST** add comments when adding new code (one line per comment)
 
 ---
 
@@ -367,15 +413,19 @@ To make properties customizable in the Dynamics 365 Styles panel:
 
 ## Notes for Claude
 
-- **Prioritize accessibility** - This project emphasizes WCAG compliance
+- **Prioritize accessibility** - This project emphasizes WCAG compliance (CRITICAL requirement)
 - **Email templates are restrictive** - Follow email rules strictly
 - **Consult `llm.md` frequently** - It's the source of truth for Dynamics 365 attributes
 - **Single-file architecture** - Keep everything self-contained
 - **Production quality** - These templates are used in live customer journeys
 - **Test assumptions** - When unsure, check the anti-patterns section in `llm.md`
+- **Always comment new code** - One line per comment, keep it clear and concise
+- **Update changelog** - Document all changes in changelog.md
+- **Ask before changing headers** - Get approval before modifying header sections
+- **No backups needed** - Git handles versioning, create files directly in /templates/
 
 ---
 
-**Version:** 1.0
+**Version:** 1.1
 **Last Updated:** October 21, 2025
 **Platform:** Dynamics 365 Customer Insights Journeys 1.1.59247.103
