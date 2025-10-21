@@ -11,8 +11,10 @@ This fully customizable, WCAG-compliant form template gives you **complete contr
 
 ## ⚠️ The Challenge
 
-The default form setup in Dynamics 365 is rigid and visually outdated.  
-Brand customization is minimal, accessibility support is limited, and modifying layout or logic often breaks the form.  
+The default setup for editing forms, emails and pages in Dynamics 365 is rigid and visually outdated. 
+
+Brand customization is minimal, accessibility support is limited, and modifying layout or logic often breaks the visual design. 
+
 This results in an inconsistent customer experience that doesn’t reflect your brand standards or modern UX expectations.
 
 ---
