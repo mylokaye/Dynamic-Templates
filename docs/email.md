@@ -12,8 +12,8 @@
 | `<style>` in `<head>` | ✓ Supported | Secondary method |
 | CSS classes | ✓ Supported | |
 | CSS IDs | ✓ Supported | |
-| Table layouts | ✓ Required | Use for structure |
-| `<div>` layouts | ✗ Avoid | Use only within tables |
+| Div layouts | ✓ Supported | Recommended for all layouts |
+| CSS Flexbox/Grid | ✓ Supported | Modern layout approach |
 | Images (`<img>`) | ✓ Supported | Include alt text |
 | Animated GIFs | ✓ Supported | |
 | `padding`, `margin`, `max-width` | ✓ Supported | |
@@ -36,7 +36,7 @@
 When generating an email template, follow this sequence:
 
 - [ ] **Width:** Set email width to 700px
-- [ ] **Layout:** Use `<table>` for primary structure
+- [ ] **Layout:** Use `<div>` elements with flexbox or grid
 - [ ] **Designer Mode:** Add designer meta tag to `<head>`
 - [ ] **CSS Method:** Apply critical styles inline via `style=""`
 - [ ] **Style Block:** Add single `<style>` tag in `<head>` for shared styles
@@ -58,16 +58,12 @@ When generating an email template, follow this sequence:
 
 **Layout Architecture:**
 ```html
-<table width="700" align="center">
-  <tr>
-    <td>
-      <!-- Content -->
-    </td>
-  </tr>
-</table>
+<div style="max-width: 700px; margin: 0 auto;">
+  <!-- Content -->
+</div>
 ```
 
-**Why Tables:** Email clients have inconsistent `<div>` rendering. Tables provide reliable cross-client layout.
+**Modern Approach:** Use div-based layouts with inline styles for maximum flexibility and maintainability.
 
 ### CSS Implementation for Emails
 
@@ -155,8 +151,8 @@ When generating an email template, follow this sequence:
 
 ### Email Client Compatibility Matrix
 
-| Client | Inline CSS | Tables | Media Queries | Background Images | Border Radius | Web Fonts |
-|--------|-----------|--------|---------------|-------------------|---------------|-----------|
+| Client | Inline CSS | Div Layouts | Media Queries | Background Images | Border Radius | Web Fonts |
+|--------|-----------|-------------|---------------|-------------------|---------------|-----------|
 | Outlook | ✓ | ✓ | ✗ | Partial | Partial | ✗ |
 | Gmail | ✓ | ✓ | Partial | ✓ | ✓ | ✓ |
 | T-Online.de | ✓ | ✓ | ✗ | ✗ | Partial | ✗ |
@@ -181,7 +177,7 @@ Generate a Dynamics 365 email template with the following requirements:
 - Editable sections: [main content, CTA]
 
 Requirements:
-- Use table-based layout
+- Use div-based layout with flexbox or CSS Grid
 - Include inline styles
 - Add style configuration for: [list customizable properties]
 - Email client compatible (no media queries, background-image, or border-radius)
@@ -211,7 +207,7 @@ Generate a Dynamics 365 page template for:
 - Style customization: [colors, fonts, spacing]
 
 Requirements:
-- Use div-based or table-based layout
+- Use div-based layout with flexbox or CSS Grid
 - Include drag-and-drop containers in [specify areas]
 - Lock [specify sections]
 ```
@@ -222,7 +218,7 @@ Requirements:
 
 **Email Template Checklist:**
 - [ ] Width: 700px (preferred) or max 800px
-- [ ] Layout: Table-based
+- [ ] Layout: Div-based with flexbox or grid
 - [ ] Designer meta tag added
 - [ ] Inline styles for critical CSS
 - [ ] Fallback fonts specified

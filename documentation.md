@@ -81,9 +81,9 @@ Every template requires these three core elements:
 
 | Type | Primary Use | Layout Method | Width Constraint | Special Requirements |
 |------|-------------|---------------|------------------|---------------------|
-| **Email** | Marketing emails, newsletters | Tables | 700-800px | Strict email client compatibility |
-| **Form** | Lead capture, surveys | Tables or divs | Flexible | Form validation elements |
-| **Page** | Preference Center, Landing pages | Tables or divs | Flexible | More CSS flexibility |
+| **Email** | Marketing emails, newsletters | Divs with flexbox/grid | 700-800px | Strict email client compatibility |
+| **Form** | Lead capture, surveys | Divs with flexbox/grid | Flexible | Form validation elements |
+| **Page** | Preference Center, Landing pages | Divs with flexbox/grid | Flexible | More CSS flexibility |
 
 ### Decision Tree
 
@@ -92,21 +92,21 @@ START: What are you building?
 │
 ├─→ EMAIL TEMPLATE
 │   ├─→ Width: 700px (preferred)
-│   ├─→ Layout: Tables ONLY
+│   ├─→ Layout: Divs with flexbox or grid
 │   ├─→ CSS: Inline styles + embedded
 │   ├─→ Restrictions: No media queries, no background-image, no border-radius
 │   └─→ Validation: HTML4/XHTML strict
 │
 ├─→ FORM TEMPLATE
 │   ├─→ Width: Flexible
-│   ├─→ Layout: Tables or divs
+│   ├─→ Layout: Divs with flexbox or grid
 │   ├─→ Elements: FormBlock, Field-{name}, SubmitButtonBlock
 │   ├─→ CSS: More flexible than email
 │   └─→ Validation: HTML5 allowed
 │
 └─→ PAGE/PREFERENCE CENTER TEMPLATE
     ├─→ Width: Flexible
-    ├─→ Layout: Divs preferred, tables allowed
+    ├─→ Layout: Divs with flexbox or grid
     ├─→ CSS: Full styling support
     └─→ Validation: HTML5 allowed
 ```
@@ -160,22 +160,17 @@ Define regions where users can drag design elements.
 
 **Multiple Containers Example:**
 ```html
-<table width="100%">
-  <tr>
-    <!-- Non-editable header -->
-    <td style="background: #0078d4;">
-      <img src="logo.png" alt="Logo">
-    </td>
-  </tr>
-  <tr>
-    <!-- Editable content area -->
-    <td>
-      <div data-container="true">
-        <!-- Users can add/edit content here -->
-      </div>
-    </td>
-  </tr>
-</table>
+<div style="max-width: 700px; margin: 0 auto;">
+  <!-- Non-editable header -->
+  <div style="background: #0078d4; padding: 20px;">
+    <img src="logo.png" alt="Logo">
+  </div>
+
+  <!-- Editable content area -->
+  <div data-container="true" style="padding: 20px;">
+    <!-- Users can add/edit content here -->
+  </div>
+</div>
 ```
 
 ---

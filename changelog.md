@@ -1,4 +1,24 @@
 22-10-2025
+**Major Refactoring: Replaced Tables with Div-Based Layouts**
+
+Updated all documentation to use modern div-based layouts with CSS Flexbox and Grid instead of tables
+
+Removed all table layout examples from docs/email.md (replaced with div + flexbox/grid examples)
+
+Removed all table layout examples from docs/form.md
+
+Completely rewrote docs/preference-center.md with CSS Grid examples (no tables)
+
+Updated docs/page.md to show flexbox alternative instead of table-based layout
+
+Updated documentation.md decision tree and examples to use divs with flexbox/grid
+
+Updated CLAUDE.md development guide to reflect div-based approach for all template types
+
+All documentation now promotes modern, maintainable div-based layouts with CSS Grid and Flexbox
+
+Contact-form.html refactoring pending (contains D365-generated table markup)
+
 **Documentation Improvements and Cleanup**
 
 Fixed typo in docs/email.md (Documentation was misspelled as "Documentaiton")
