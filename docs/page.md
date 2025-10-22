@@ -10,7 +10,7 @@ Page templates are used for landing pages, content pages, and other web-based co
 
 | Feature | Email | Page |
 |---------|-------|------|
-| Layout method | Tables required | Divs preferred, tables allowed |
+| Layout method | Divs with flexbox/grid | Divs with flexbox/grid |
 | CSS flexibility | Restricted | Full support |
 | Width | 700-800px | Flexible |
 | Media queries | Not supported | Supported |
@@ -67,20 +67,30 @@ Modern semantic HTML5 structure with flexbox/grid support:
 </html>
 ```
 
-### Table-Based Layout (Alternative)
+### Flexbox Layout (Alternative)
 
-Use when compatibility with older systems is required:
+Use flexbox for simpler linear layouts:
 
 ```html
-<table width="100%">
-  <tr>
-    <td>
-      <div data-container="true">
-        <!-- Content -->
-      </div>
-    </td>
-  </tr>
-</table>
+<div style="display: flex; flex-direction: column; min-height: 100vh;">
+  <header style="flex-shrink: 0;">
+    <div data-container="true">
+      <!-- Header content -->
+    </div>
+  </header>
+
+  <main style="flex-grow: 1;">
+    <div data-container="true">
+      <!-- Main content -->
+    </div>
+  </main>
+
+  <footer style="flex-shrink: 0;">
+    <div data-container="true">
+      <!-- Footer content -->
+    </div>
+  </footer>
+</div>
 ```
 
 ---

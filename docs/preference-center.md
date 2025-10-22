@@ -91,36 +91,34 @@ Displays the contact's email address and channel preferences:
 
 ## Multi-Column Purpose Layout
 
-Preference centers typically display multiple brands or purposes in a grid layout. Each column represents one brand or purpose group:
+Preference centers typically display multiple brands or purposes in a grid layout using CSS Grid or Flexbox:
 
 ```html
-<table width="100%" style="border-spacing: 20px;">
-  <tr>
-    <!-- Column 1 - Brand A -->
-    <td data-container="true" width="33%" style="vertical-align: top;">
-      <!-- Logo -->
-      <div data-editorblocktype="Image">
-        <img src="brand-a-logo.png" alt="Brand A Logo">
-      </div>
+<div class="brand-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+  <!-- Column 1 - Brand A -->
+  <div data-container="true" style="padding: 20px; background-color: #fafafa;">
+    <!-- Logo -->
+    <div data-editorblocktype="Image">
+      <img src="brand-a-logo.png" alt="Brand A Logo">
+    </div>
 
-      <!-- Topics: Drag Topic elements here from Toolbox -->
-      <!-- Each topic = one subscription option for this brand -->
+    <!-- Topics: Drag Topic elements here from Toolbox -->
+    <!-- Each topic = one subscription option for this brand -->
 
-      <!-- Purpose: Unsubscribe from all Brand A communications -->
-      <!-- Drag Purpose element here from Toolbox -->
-    </td>
+    <!-- Purpose: Unsubscribe from all Brand A communications -->
+    <!-- Drag Purpose element here from Toolbox -->
+  </div>
 
-    <!-- Column 2 - Brand B -->
-    <td data-container="true" width="33%" style="vertical-align: top;">
-      <!-- Repeat structure for Brand B -->
-    </td>
+  <!-- Column 2 - Brand B -->
+  <div data-container="true" style="padding: 20px; background-color: #fafafa;">
+    <!-- Repeat structure for Brand B -->
+  </div>
 
-    <!-- Column 3 - Brand C -->
-    <td data-container="true" width="33%" style="vertical-align: top;">
-      <!-- Repeat structure for Brand C -->
-    </td>
-  </tr>
-</table>
+  <!-- Column 3 - Brand C -->
+  <div data-container="true" style="padding: 20px; background-color: #fafafa;">
+    <!-- Repeat structure for Brand C -->
+  </div>
+</div>
 ```
 
 **Design Pattern:**
@@ -149,13 +147,26 @@ Preference centers typically display multiple brands or purposes in a grid layou
         value="marketing-designer-content-editor-document">
 
   <style>
-    /* Your styles */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .brand-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <form>
     <!-- Header Section -->
-    <div data-container="true">
+    <div data-container="true" style="text-align: center; padding: 40px 20px;">
       <div data-editorblocktype="Text">
         <h1>Privacy & Preference Center</h1>
         <p>Manage your email preferences below</p>
@@ -163,36 +174,34 @@ Preference centers typically display multiple brands or purposes in a grid layou
     </div>
 
     <!-- Multi-column brand/purpose grid -->
-    <table width="100%">
-      <tr>
-        <td data-container="true" width="33%" style="vertical-align: top;">
-          <!-- Brand A: Logo + Topics + Purpose -->
-        </td>
-        <td data-container="true" width="33%" style="vertical-align: top;">
-          <!-- Brand B: Logo + Topics + Purpose -->
-        </td>
-        <td data-container="true" width="33%" style="vertical-align: top;">
-          <!-- Brand C: Logo + Topics + Purpose -->
-        </td>
-      </tr>
-    </table>
+    <div class="brand-grid">
+      <div data-container="true" style="padding: 20px; background: #fafafa;">
+        <!-- Brand A: Logo + Topics + Purpose -->
+      </div>
+      <div data-container="true" style="padding: 20px; background: #fafafa;">
+        <!-- Brand B: Logo + Topics + Purpose -->
+      </div>
+      <div data-container="true" style="padding: 20px; background: #fafafa;">
+        <!-- Brand C: Logo + Topics + Purpose -->
+      </div>
+    </div>
 
     <!-- Email display and channel selector -->
-    <div data-container="true">
+    <div data-container="true" style="padding: 20px;">
       <div data-editorblocktype="ContactOptIn" data-channels="Email">
         <!-- Managed by designer -->
       </div>
     </div>
 
     <!-- Submit button -->
-    <div data-container="true">
+    <div data-container="true" style="text-align: center; padding: 20px;">
       <div data-editorblocktype="SubmitButtonBlock">
         <!-- Managed by designer -->
       </div>
     </div>
 
     <!-- Footer Section -->
-    <div data-container="true">
+    <div data-container="true" style="text-align: center; padding: 20px; background: #f5f5f5;">
       <div data-editorblocktype="Text">
         <p>Questions? Contact us at privacy@company.com</p>
         <p>&copy; 2025 Company Name. All rights reserved.</p>
@@ -277,12 +286,21 @@ Preference centers typically display multiple brands or purposes in a grid layou
       padding: 0 20px;
     }
 
-    /* Brand Columns */
-    .brand-columns {
+    /* Brand Grid */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
       background-color: white;
       padding: 40px;
       border-radius: 8px;
       margin-bottom: 30px;
+    }
+
+    @media (max-width: 992px) {
+      .brand-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .brand-column {
@@ -341,47 +359,43 @@ Preference centers typically display multiple brands or purposes in a grid layou
     <!-- Main Content -->
     <div class="main-content">
 
-      <!-- Brand Columns -->
-      <div class="brand-columns">
-        <table width="100%" style="border-spacing: 20px;">
-          <tr>
-            <!-- Brand A -->
-            <td data-container="true" width="33%" style="vertical-align: top;" class="brand-column">
-              <div data-editorblocktype="Image">
-                <img src="brand-a-logo.png" alt="Brand A">
-              </div>
-              <div data-editorblocktype="Text">
-                <h3>Brand A Communications</h3>
-              </div>
-              <!-- Users drag Topic elements here -->
-              <!-- Users drag Purpose element here -->
-            </td>
+      <!-- Brand Grid -->
+      <div class="brand-grid">
+        <!-- Brand A -->
+        <div data-container="true" class="brand-column">
+          <div data-editorblocktype="Image">
+            <img src="brand-a-logo.png" alt="Brand A">
+          </div>
+          <div data-editorblocktype="Text">
+            <h3>Brand A Communications</h3>
+          </div>
+          <!-- Users drag Topic elements here -->
+          <!-- Users drag Purpose element here -->
+        </div>
 
-            <!-- Brand B -->
-            <td data-container="true" width="33%" style="vertical-align: top;" class="brand-column">
-              <div data-editorblocktype="Image">
-                <img src="brand-b-logo.png" alt="Brand B">
-              </div>
-              <div data-editorblocktype="Text">
-                <h3>Brand B Communications</h3>
-              </div>
-              <!-- Users drag Topic elements here -->
-              <!-- Users drag Purpose element here -->
-            </td>
+        <!-- Brand B -->
+        <div data-container="true" class="brand-column">
+          <div data-editorblocktype="Image">
+            <img src="brand-b-logo.png" alt="Brand B">
+          </div>
+          <div data-editorblocktype="Text">
+            <h3>Brand B Communications</h3>
+          </div>
+          <!-- Users drag Topic elements here -->
+          <!-- Users drag Purpose element here -->
+        </div>
 
-            <!-- Brand C -->
-            <td data-container="true" width="33%" style="vertical-align: top;" class="brand-column">
-              <div data-editorblocktype="Image">
-                <img src="brand-c-logo.png" alt="Brand C">
-              </div>
-              <div data-editorblocktype="Text">
-                <h3>Brand C Communications</h3>
-              </div>
-              <!-- Users drag Topic elements here -->
-              <!-- Users drag Purpose element here -->
-            </td>
-          </tr>
-        </table>
+        <!-- Brand C -->
+        <div data-container="true" class="brand-column">
+          <div data-editorblocktype="Image">
+            <img src="brand-c-logo.png" alt="Brand C">
+          </div>
+          <div data-editorblocktype="Text">
+            <h3>Brand C Communications</h3>
+          </div>
+          <!-- Users drag Topic elements here -->
+          <!-- Users drag Purpose element here -->
+        </div>
       </div>
 
       <!-- Contact Email Display -->
@@ -439,58 +453,44 @@ Preference centers typically display multiple brands or purposes in a grid layou
 #### Header with Logo
 
 ```html
-<table width="100%" style="background-color: #0078d4;">
-  <tr>
-    <td style="padding: 20px; text-align: center;">
-      <img src="logo.png" alt="Company Logo" width="200" height="60">
-      <h1 style="color: white; margin: 10px 0 0 0; font-size: 24px;">Preference Center</h1>
-    </td>
-  </tr>
-</table>
+<div style="background-color: #0078d4; padding: 20px; text-align: center;">
+  <img src="logo.png" alt="Company Logo" width="200" height="60">
+  <h1 style="color: white; margin: 10px 0 0 0; font-size: 24px;">Preference Center</h1>
+</div>
 ```
 
 #### Two-Column Layout
 
 ```html
-<table width="100%">
-  <tr>
-    <td width="50%" style="padding: 10px; vertical-align: top;">
-      <div data-container="true">
-        <!-- Left column content -->
-      </div>
-    </td>
-    <td width="50%" style="padding: 10px; vertical-align: top;">
-      <div data-container="true">
-        <!-- Right column content -->
-      </div>
-    </td>
-  </tr>
-</table>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+  <div data-container="true" style="padding: 20px; background: #fafafa;">
+    <!-- Left column content -->
+  </div>
+  <div data-container="true" style="padding: 20px; background: #fafafa;">
+    <!-- Right column content -->
+  </div>
+</div>
 ```
 
 #### Footer with Legal Links
 
 ```html
-<table width="100%" style="background-color: #f5f5f5;">
-  <tr>
-    <td style="padding: 20px; text-align: center;">
-      <p style="margin: 0 0 10px 0; font-size: 12px; color: #666;">
-        © 2025 Company Name. All rights reserved.
-      </p>
-      <p style="margin: 0; font-size: 12px;">
-        <a href="#" style="color: #0078d4; margin: 0 5px;">Privacy Policy</a> |
-        <a href="#" style="color: #0078d4; margin: 0 5px;">Terms of Service</a> |
-        <a href="#" style="color: #0078d4; margin: 0 5px;">Contact Us</a>
-      </p>
-    </td>
-  </tr>
-</table>
+<div style="background-color: #f5f5f5; padding: 20px; text-align: center;">
+  <p style="margin: 0 0 10px 0; font-size: 12px; color: #666;">
+    © 2025 Company Name. All rights reserved.
+  </p>
+  <p style="margin: 0; font-size: 12px;">
+    <a href="#" style="color: #0078d4; margin: 0 5px;">Privacy Policy</a> |
+    <a href="#" style="color: #0078d4; margin: 0 5px;">Terms of Service</a> |
+    <a href="#" style="color: #0078d4; margin: 0 5px;">Contact Us</a>
+  </p>
+</div>
 ```
 
 #### Brand Column Container
 
 ```html
-<td data-container="true" width="33%" style="padding: 15px; vertical-align: top; background-color: #fafafa;">
+<div data-container="true" style="padding: 15px; background-color: #fafafa; border-radius: 4px;">
   <div data-editorblocktype="Image">
     <img src="brand-logo.png" alt="Brand Name" style="max-width: 120px; margin-bottom: 15px;">
   </div>
@@ -500,7 +500,7 @@ Preference centers typically display multiple brands or purposes in a grid layou
   </div>
   <!-- Users drag Topic elements here -->
   <!-- Users drag Purpose element here at bottom -->
-</td>
+</div>
 ```
 
 ---
@@ -510,17 +510,18 @@ Preference centers typically display multiple brands or purposes in a grid layou
 ### Required Elements
 - [ ] Designer meta tag in `<head>`
 - [ ] D365 preference center scripts before `</body>` (contextId, formId, orgId, SerializedData)
-- [ ] Multi-column layout structure (typically 2-3 columns)
+- [ ] Multi-column grid layout using CSS Grid or Flexbox
 - [ ] Containers in each column for draggable elements
 - [ ] ContactOptIn element for email display
 - [ ] SubmitButtonBlock for form submission
 
 ### Layout & Design
 - [ ] Header section with title and instructions
-- [ ] Brand/purpose columns with logos
+- [ ] Brand/purpose columns with logos using CSS Grid
 - [ ] Visual separation between columns
 - [ ] Footer with legal links and contact info
 - [ ] Consistent spacing and typography
+- [ ] Responsive design with mobile breakpoints
 
 ### Draggable Elements (users add these)
 - [ ] Topic elements in each brand column
@@ -530,7 +531,7 @@ Preference centers typically display multiple brands or purposes in a grid layou
 
 ### Styling
 - [ ] Style configuration for brand colors
-- [ ] Responsive design (optional but recommended)
+- [ ] Responsive design with media queries
 - [ ] Clear visual hierarchy
 - [ ] Brand consistency
 
@@ -541,6 +542,7 @@ Preference centers typically display multiple brands or purposes in a grid layou
 - [ ] Verify form submission
 - [ ] Test with real contact data
 - [ ] Validate preference updates save correctly
+- [ ] Test responsive layout on mobile/tablet
 
 ---
 
@@ -573,6 +575,8 @@ Preference centers must follow WCAG 2.1 Level AA guidelines:
 - [Dynamic Content Implementation](https://learn.microsoft.com/dynamics365/customer-insights/journeys/dynamic-email-content)
 
 ### Best Practices
+- Use CSS Grid for multi-column layouts
+- Implement responsive design with media queries
 - Use clear, descriptive topic names
 - Group related topics by brand or purpose
 - Provide clear unsubscribe options
@@ -581,6 +585,6 @@ Preference centers must follow WCAG 2.1 Level AA guidelines:
 
 ---
 
-**Document Version:** 2.0
+**Document Version:** 3.0
 **Last Updated:** October 22, 2025
 **Platform:** Dynamics 365 Customer Insights Journeys 1.1.59247.103

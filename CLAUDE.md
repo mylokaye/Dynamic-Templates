@@ -133,19 +133,19 @@ Track project updates and version history.
 
 #### Email Templates
 - **Width:** 700-800px (700px preferred)
-- **Layout:** Table-based ONLY
+- **Layout:** Divs with flexbox or CSS Grid
 - **CSS:** Inline styles + embedded `<style>` tag
 - **Restrictions:** No media queries, no background-image, no border-radius dependencies
 - **Validation:** HTML4/XHTML compliance required
 - **Target compatibility:** T-Online.de and Outlook (most restrictive clients)
 
 #### Form Templates
-- **Layout:** Tables or divs
+- **Layout:** Divs with flexbox or CSS Grid
 - **Required elements:** FormBlock, Field-{name}, SubmitButtonBlock
 - **Validation:** HTML5 allowed
 
 #### Page Templates
-- **Layout:** Divs preferred, tables allowed
+- **Layout:** Divs with flexbox or CSS Grid
 - **CSS:** Full styling support including media queries
 - **Responsive:** Fully supported
 - **Validation:** HTML5 allowed
@@ -201,7 +201,7 @@ To make properties customizable in the Dynamics 365 Styles panel:
 
 1. Start with the production email template in `llm.md` (line 1414)
 2. Set width to 700px
-3. Use table-based layout
+3. Use div-based layout with flexbox or CSS Grid
 4. Add style configuration for brand colors, fonts, images
 5. Create containers for editable sections
 6. Lock branding sections (no container)
@@ -270,7 +270,7 @@ To make properties customizable in the Dynamics 365 Styles panel:
 ## Critical Rules (DO NOT VIOLATE)
 
 ### Email Templates
-1. **MUST** use table-based layout
+1. **MUST** use div-based layout with flexbox or CSS Grid
 2. **MUST** be 700-800px wide
 3. **MUST NOT** use media queries
 4. **MUST NOT** use CSS background-image
@@ -296,7 +296,7 @@ To make properties customizable in the Dynamics 365 Styles panel:
 
 ### Email Templates
 - [ ] Width is 700-800px
-- [ ] Table-based layout
+- [ ] Div-based layout with flexbox or grid
 - [ ] No media queries
 - [ ] No CSS background-image
 - [ ] Inline + embedded CSS
@@ -384,7 +384,7 @@ To make properties customizable in the Dynamics 365 Styles panel:
 
 ### Q: Why won't my email template render correctly?
 **A:** Check the anti-patterns section in `llm.md` (line 1100). Common issues:
-- Using divs instead of tables for layout
+- Improper use of flexbox or grid
 - Including media queries
 - Using CSS background-image
 - Width outside 700-800px range
