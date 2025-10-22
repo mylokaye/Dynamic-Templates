@@ -5,7 +5,7 @@ Created contact-form-v2.html with new floating label field styling
 
 Updated form field containers with position: relative and margin-bottom: 32px
 
-Implemented floating labels with absolute positioning at top of fields (font-size: 22px, background: white)
+Implemented floating labels with absolute positioning at top of fields (font-size: 22px, background: white, color: #000)
 
 Applied new input wrapper styling with 0.2rem border and calc(1.5em + 3.8rem) height
 
@@ -14,6 +14,10 @@ Added hover state with border-color: #000 for enhanced interactivity
 Added focus state with border-color: #000 for clear user feedback
 
 Updated placeholder color to #BDBDBD for consistent visual hierarchy
+
+Added optional field styling with lighter border-color: #9E9E9E for non-required fields
+
+Updated required asterisk color to #dc0000 for better visibility
 
 Maintained all Dynamics 365 custom attributes and accessibility standards
 
