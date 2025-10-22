@@ -1,4 +1,4 @@
-![Dynamics 365 Customer Insights Journeys Form Template](https://repository-images.githubusercontent.com/1078737337/458a5796-de1b-4306-b985-40e5db41c48d)
+
 
 # Dynamics 365 Customer Insights Journeys: A collection of templates for Dynamics 365 Forms, Preference Centers and Emails
 
