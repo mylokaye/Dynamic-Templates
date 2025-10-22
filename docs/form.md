@@ -27,7 +27,7 @@ Each form type serves a specific purpose in Dynamics 365 Customer Insights marke
   - Purpose: Manage consent preferences for contacts
   - Target: Existing contacts
   - Features: Consent management, subscription preferences
-  - Full Preference Center documentation: [/docs-pc.md](/docs-pc.md)
+  - Full Preference Center documentation: [preference-center.md](preference-center.md)
 
 ### Form Audience Configuration
 - Marketing forms: Target leads or contacts
