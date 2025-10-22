@@ -1,4 +1,16 @@
 22-10-2025
+**Contact Form V2 - Error Message Styling Update**
+
+Updated error message styling to match form-prototype.html validation message design
+
+Changed error display to flexbox layout with icon and text side-by-side
+
+Added warning icon (⚠) with #F5A623 color for better visual feedback
+
+Updated error text to 16px font size and #666 color for improved readability
+
+Removed shake animation from error messages for cleaner presentation
+
 **Contact Form V2 - Floating Label Design**
 
 Created contact-form-v2.html with new floating label field styling
