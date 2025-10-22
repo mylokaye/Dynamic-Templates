@@ -357,7 +357,7 @@
                 top: -14px;
                 white-space: nowrap;
                 z-index: 89;
-                color: #1b4965;
+                color: #000;
                 font-family: "Inter", "Segoe UI", Arial, sans-serif;
             }
 
@@ -372,7 +372,7 @@
             .textFormFieldBlock label::after,
             .dateTimeFormFieldBlock label::after,
             .lookupFormFieldBlock label::after {
-                color: #c33400;
+                color: #dc0000;
                 content: "*";
                 visibility: hidden;
                 margin-left: 4px;
@@ -405,6 +405,14 @@
                 width: 100%;
                 box-sizing: border-box;
                 outline: none;
+            }
+
+            /* Optional field styling - lighter border for non-required fields */
+            .textFormFieldBlock:not([data-required]) input,
+            .dateTimeFormFieldBlock:not([data-required]) input,
+            .lookupFormFieldBlock:not([data-required]) input,
+            .textFormFieldBlock:not([data-required]) textarea {
+                border-color: #9E9E9E;
             }
 
             /* Textarea specific height adjustment */
@@ -543,7 +551,7 @@
                 display: inline-block;
                 line-height: 22px;
                 text-align: center;
-                color: #c33400;
+                color: #dc0000;
                 content: "*";
                 visibility: hidden;
             }
@@ -1040,7 +1048,7 @@
                 display: inline-block;
                 line-height: 22px;
                 text-align: center;
-                color: #c33400;
+                color: #dc0000;
                 content: "*";
                 visibility: hidden;
             }
