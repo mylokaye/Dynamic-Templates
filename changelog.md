@@ -1,4 +1,12 @@
 22-10-2025
+**Contact Form V2 - Label Position Fix**
+
+Fixed floating label position to match prototype alignment
+
+Changed label left position from 16px to 46px to account for container padding
+
+Label now aligns correctly with input field border matching form-prototype.html
+
 **Contact Form V2 - Error Message Styling Update**
 
 Updated error message styling to match form-prototype.html validation message design
