@@ -1,4 +1,22 @@
 22-10-2025
+**Contact Form V2 - Floating Label Design**
+
+Created contact-form-v2.html with new floating label field styling
+
+Updated form field containers with position: relative and margin-bottom: 32px
+
+Implemented floating labels with absolute positioning at top of fields (font-size: 22px, background: white)
+
+Applied new input wrapper styling with 0.2rem border and calc(1.5em + 3.8rem) height
+
+Added hover state with border-color: #000 for enhanced interactivity
+
+Added focus state with border-color: #000 for clear user feedback
+
+Updated placeholder color to #BDBDBD for consistent visual hierarchy
+
+Maintained all Dynamics 365 custom attributes and accessibility standards
+
 **Documentation Improvements and Cleanup**
 
 Fixed typo in docs/email.md (Documentation was misspelled as "Documentaiton")
